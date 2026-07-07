@@ -1,0 +1,59 @@
+{
+    "short_name": "Slate Lite",
+    "name": "Slate Lite",
+    "description": "A simple and lightweight note-taking & todo app.",
+    "icons": [
+        {
+            "src": "icons/256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/square-pen.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "id": "/?source=pwa",
+    "start_url": "/?source=pwa",
+    "display": "standalone",
+    "background_color": "#1f1f1f",
+    "theme_color": "#b59372",
+    "scope": "/",
+    "shortcuts": [
+        {
+            "name": "Open Slate Lite",
+            "url": "/?source=pwa",
+            "icons": [{ "src": "icons/180.png", "sizes": "180x180" }]
+        },
+        {
+            "name": "Create Write",
+            "url": "/?source=pwa",
+            "icons": [{ "src": "icons/square-pen.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "Create List",
+            "url": "/?source=pwa",
+            "icons": [{ "src": "icons/square-pen.png", "sizes": "96x96" }]
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "assets/Screenshot1.png",
+            "sizes": "640x480",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "assets/Screenshot2.png",
+            "sizes": "480x640",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ]
+}
