@@ -6,7 +6,7 @@
     <title>Slate Lite</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-    <link rel="icon" type="image/x-icon" href="icons/favicon.png">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 </head>
 <body>
     <h1>Slate Tasks <span style="color: var(--accent-color3);">Lite</span></h1>
@@ -21,7 +21,7 @@
         <div class="searchBar">
             <input type="text" placeholder="Search tasks...">
         </div>
-        <button class="btn2"><i class="fa-solid fa-magnifying-glass" style="color: rgb(117, 95, 73);"></i></button>
+        <button class="btn2"><img class="ico" src="icons/search.svg" alt="Search"></button>
     </div>
     
     <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
@@ -34,6 +34,10 @@
 
     <div id="writeContainer"></div>
 </body>
+<footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">
+    <p>Open source on <a href="https://github.com/FencingLefty3/SlateLite">GitHub</a>.</p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage.</a>
+</footer>
+
 <script src="js/dexie.min.js"></script>
 <script src="database.js"></script>
 <script src="index.js"></script>

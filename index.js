@@ -10,7 +10,7 @@ async function renderLists() {
     lists.forEach(list => {
         const point = document.createElement("div");
         point.className = "point";
-        point.innerHTML = `<span>${list.title}</span> <button class="point-delete-btn" data-id="${list.id}">Delete</button>`;
+        point.innerHTML = `<span>${list.title}</span> <button class="point-delete-btn" data-id="${list.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
         listContainer.appendChild(point);
     });
 }
@@ -50,7 +50,7 @@ async function renderWrites() {
     writes.forEach(write => {
         const line = document.createElement("div");
         line.className = "point";
-        line.innerHTML = `<span>${write.title}</span> <button class="line-delete-btn" id="deleteWriteButton" data-id="${write.id}">Delete</button>`;
+        line.innerHTML = `<span>${write.title}</span> <button class="line-delete-btn" id="deleteWriteButton" data-id="${write.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
         writeContainer.appendChild(line);
     });
 }
@@ -82,3 +82,18 @@ writeContainer.addEventListener("click", async (event) => {
 
 renderLists();
 renderWrites();
+
+async function clearDatabase() {
+    const confirmation = confirm("Are you sure you want to clear the database? This action cannot be undone.");
+
+    if (confirmation) {
+        await db.lists.clear();
+        await db.writes.clear();
+
+        renderLists();
+        renderWrites();
+    }  
+}
+
+const clearDatabaseButton = document.getElementById("clearDatabaseButton");
+clearDatabaseButton.addEventListener("click", clearDatabase);
