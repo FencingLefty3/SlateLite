@@ -19,26 +19,26 @@
             "type": "image/png"
         }
     ],
-    "id": "/?source=pwa",
-    "start_url": "/?source=pwa",
+    "id": "./",
+    "start_url": ".",
     "display": "standalone",
     "background_color": "#1f1f1f",
     "theme_color": "#b59372",
-    "scope": "/",
+    "scope": "./",
     "shortcuts": [
         {
             "name": "Open Slate Lite",
-            "url": "/?source=pwa",
+            "url": "./",
             "icons": [{ "src": "icons/180.png", "sizes": "180x180" }]
         },
         {
             "name": "Create Write",
-            "url": "/?source=pwa",
+            "url": "./",
             "icons": [{ "src": "icons/square-pen.png", "sizes": "96x96" }]
         },
         {
             "name": "Create List",
-            "url": "/?source=pwa",
+            "url": "./",
             "icons": [{ "src": "icons/square-pen.png", "sizes": "96x96" }]
         }
     ],
