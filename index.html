@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slate Tasks Lite</title>
+    <link rel="stylesheet" href="index.css">
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+/>
+</head>
+<body>
+    <h1>Slate Tasks <span style="color: var(--accent-color3);">Lite</span></h1>
+
+    <div class="row-section">
+        <nav class="filters">
+            <button>All Time</button>
+            <button>Today</button>
+            <button>This Week</button>
+            <button>Later</button>
+        </nav>
+        <div class="searchBar">
+            <input type="text" placeholder="Search tasks...">
+        </div>
+        <button class="btn2"><i class="fa-solid fa-magnifying-glass" style="color: rgb(117, 95, 73);"></i></button>
+    </div>
+    
+    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
+    <hr width="65%">
+
+    <div id="listContainer"></div>
+    
+    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
+    <hr width="65%">  
+
+    <div id="writeContainer"></div>
+</body>
+<script src="js/dexie.min.js"></script>
+<script src="database.js"></script>
+<script src="index.js"></script>
+</html>
