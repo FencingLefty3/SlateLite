@@ -80,6 +80,38 @@ writeContainer.addEventListener("click", async (event) => {
 });
 //-------------------------------------------------------------------------//
 
+
+const writeCreateDialog = document.getElementById("writeCreate");
+const listCreateDialog = document.getElementById("listCreate");
+
+const writeCreateForm = document.getElementById("writeCreateFrm");
+const listCreateForm = document.getElementById("listCreateFrm");
+
+function openWriteCreateDialog() {
+    writeCreateDialog.showModal();
+}
+
+function openListCreateDialog() {
+    listCreateDialog.showModal();
+}
+
+//--//
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const action = urlParams.get('action');
+
+console.log("Action parameter:", action);
+
+if (action === 'write') {
+    console.log("Opening write create dialog");
+    openWriteCreateDialog();
+} else if (action === 'list') {
+    console.log("Opening list create dialog");
+    openListCreateDialog();
+}
+
+//-------------------------------------------------------------------------//
 renderLists();
 renderWrites();
 

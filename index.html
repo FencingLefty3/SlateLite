@@ -31,30 +31,30 @@
         <button class="btn2"><img class="ico" src="icons/search.svg" alt="Search"></button>
     </div>
     
-    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
+    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button href="./?action=list" id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
     <hr width="65%">
 
     <div id="listContainer"></div>
     
-    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
+    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button href="./?action=write" id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
     <hr width="65%">  
 
     <div id="writeContainer"></div>
 
-    <div  class="row-section-bg">
-        <form id="writeCreate">
-            <input type="text" placeholder="Title" id="writeTitleInput">
+    <dialog id="writeCreate" >
+        <form id="writeCreateFrm">
+            <input required type="text" placeholder="Title" id="writeTitleInput">
             <input type="text" placeholder="Write your text here..." id="writeTextInput">
             <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
         </form>
-    </div>
-    <div class="row-section-bg">
-        <form id="listCreate">
-            <input type="text" placeholder="Title" id="listTitleInput">
+    </dialog>
+    <dialog id="listCreate">
+        <form  id="listCreateFrm">
+            <input required type="text" placeholder="Title" id="listTitleInput">
             <input type="datetime-local" id="listDateInput">
             <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
         </form>
-    </div>
+    </dialog >
 </body>
 <footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">
     <p>Open source on <a href="https://github.com/FencingLefty3/SlateLite">GitHub</a>.</p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage.</a>
