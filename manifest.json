@@ -27,18 +27,13 @@
     "scope": "./",
     "shortcuts": [
         {
-            "name": "Open Slate Lite",
-            "url": "./",
-            "icons": [{ "src": "icons/180.png", "sizes": "180x180" }]
-        },
-        {
             "name": "Create Write",
-            "url": "./",
+            "url": "./?action=write",
             "icons": [{ "src": "icons/square-pen.png", "sizes": "96x96" }]
         },
         {
             "name": "Create List",
-            "url": "./",
+            "url": "./?action=list",
             "icons": [{ "src": "icons/square-pen.png", "sizes": "96x96" }]
         }
     ],

@@ -40,6 +40,21 @@
     <hr width="65%">  
 
     <div id="writeContainer"></div>
+
+    <div  class="row-section-bg">
+        <form id="writeCreate">
+            <input type="text" placeholder="Title" id="writeTitleInput">
+            <input type="text" placeholder="Write your text here..." id="writeTextInput">
+            <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
+        </form>
+    </div>
+    <div class="row-section-bg">
+        <form id="listCreate">
+            <input type="text" placeholder="Title" id="listTitleInput">
+            <input type="datetime-local" id="listDateInput">
+            <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
+        </form>
+    </div>
 </body>
 <footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">
     <p>Open source on <a href="https://github.com/FencingLefty3/SlateLite">GitHub</a>.</p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage.</a>

@@ -97,3 +97,7 @@ async function clearDatabase() {
 
 const clearDatabaseButton = document.getElementById("clearDatabaseButton");
 clearDatabaseButton.addEventListener("click", clearDatabase);
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+};
