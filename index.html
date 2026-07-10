@@ -31,27 +31,27 @@
         <button class="btn2"><img class="ico" src="icons/search.svg" alt="Search"></button>
     </div>
     
-    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button href="./?action=list" id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
+    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
     <hr width="65%">
 
     <div id="listContainer"></div>
     
-    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button href="./?action=write" id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
+    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
     <hr width="65%">  
 
     <div id="writeContainer"></div>
 
     <dialog id="writeCreate" >
         <form id="writeCreateFrm">
-            <input required type="text" placeholder="Title" id="writeTitleInput">
-            <input type="text" placeholder="Write your text here..." id="writeTextInput">
+            <input name="title" required type="text" placeholder="Title" id="writeTitleInput">
+            <input name="content" type="text" placeholder="Write your text here..." id="writeTextInput">
             <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
         </form>
     </dialog>
     <dialog id="listCreate">
         <form  id="listCreateFrm">
-            <input required type="text" placeholder="Title" id="listTitleInput">
-            <input type="datetime-local" id="listDateInput">
+            <input name="title" required type="text" placeholder="Title" id="listTitleInput">
+            <input name="date" type="datetime-local" id="listDateInput">
             <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
         </form>
     </dialog >

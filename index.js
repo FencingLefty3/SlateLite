@@ -1,6 +1,22 @@
 //const lists = [];
 //const writes = [];
 
+const writeCreateDialog = document.getElementById("writeCreate");
+const listCreateDialog = document.getElementById("listCreate");
+
+const writeCreateForm = document.getElementById("writeCreateFrm");
+const listCreateForm = document.getElementById("listCreateFrm");
+
+function openWriteCreateDialog() {
+    writeCreateDialog.showModal();
+}
+
+function openListCreateDialog() {
+    listCreateDialog.showModal();
+}
+
+//--//
+
 async function renderLists() {
     const listContainer = document.getElementById("listContainer");
     const lists = await getLists();
@@ -17,14 +33,23 @@ async function renderLists() {
 
 const createListButton = document.getElementById("createListButton");
 
-createListButton.addEventListener("click", async () => {
-    const title = prompt("Enter the title for the new list:");
-    
-    if (!title) { return; }
-    
-    await createList(title);
+const listForm = document.getElementById("listCreateFrm");
 
-    renderLists();
+listForm.addEventListener("submit", async (event) => { 
+       
+        console.log("Form submitted");
+        const formData = new FormData(listForm);
+        const title = formData.get("title");
+        console.log("Form read: ", title);
+        if (!title) { return; }
+    
+        await createList(title);
+    
+        renderLists();
+    });
+
+createListButton.addEventListener("click", async () => {
+    openListCreateDialog()    
 });
 
 listContainer.addEventListener("click", async (event) => {
@@ -57,14 +82,23 @@ async function renderWrites() {
 
 const createWriteButton = document.getElementById("createWriteButton");
 
+const writeForm = document.getElementById("writeCreateFrm");
+
+writeForm.addEventListener("submit", async (event) => { 
+       
+        console.log("Form submitted");
+        const formData = new FormData(writeForm);
+        const title = formData.get("title");
+        console.log("Form read: ", title);
+        if (!title) { return; }
+    
+        await createWrite(title);
+    
+        renderWrites();
+    });
+
 createWriteButton.addEventListener("click", async () => {
-    const title = prompt("Enter the title for the new write:");
-    
-    if (!title) { return; }
-    
-    await createWrite(title);
-    
-    renderWrites();
+    openWriteCreateDialog()    
 });
 
 writeContainer.addEventListener("click", async (event) => {
@@ -80,22 +114,6 @@ writeContainer.addEventListener("click", async (event) => {
 });
 //-------------------------------------------------------------------------//
 
-
-const writeCreateDialog = document.getElementById("writeCreate");
-const listCreateDialog = document.getElementById("listCreate");
-
-const writeCreateForm = document.getElementById("writeCreateFrm");
-const listCreateForm = document.getElementById("listCreateFrm");
-
-function openWriteCreateDialog() {
-    writeCreateDialog.showModal();
-}
-
-function openListCreateDialog() {
-    listCreateDialog.showModal();
-}
-
-//--//
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
