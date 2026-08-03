@@ -3,6 +3,8 @@
 
 const writeCreateDialog = document.getElementById("writeCreate");
 const listCreateDialog = document.getElementById("listCreate");
+const listContainer = document.getElementById("listContainer");
+const writeContainer = document.getElementById("writeContainer");
 
 const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");

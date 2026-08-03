@@ -1,30 +1,73 @@
-self.addEventListener('install', function(event) {
-    console.log('Service Worker installing.');
-    caches.open('slatelite-cache-v1').then(function(cache) {
-  cache.addAll([
-    //general
-    './',
-    './index.html',
-    './index.css',
-    //'./write',
-    //'./list',
-    './manifest.json',
-    //js
-    './index.js',
-    './database.js',
-    './js/dexie.min.js',
-    //icons
-    './icons/square-pen.png',
-    './icons/180.png',
-    './icons/256.png',
-    //--'./icons/512.png',--
-    './icons/trash.svg',
-    './icons/square-pen.svg',
-    './icons/search.svg',
-    './icons/funnel.svg', //not in use
-    './icons/database-arrow-down.svg', //not in use
-  ]);
+const CACHE_NAME = 'slatelite-cache-v2';
+const APP_SHELL = [
+  './',
+  './index.html',
+  './index.css',
+  './manifest.json',
+  './index.js',
+  './database.js',
+  './js/dexie.min.js',
+  './icons/square-pen.png',
+  './icons/180.png',
+  './icons/256.png',
+  './icons/trash.svg',
+  './icons/square-pen.svg',
+  './icons/search.svg',
+  './icons/funnel.svg',
+  './icons/database-arrow-down.svg'
+];
+
+self.addEventListener('install', function (event) {
+  console.log('Service Worker installing.');
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.addAll(APP_SHELL);
+    }).then(function () {
+      return self.skipWaiting();
+    })
+  );
 });
 
+self.addEventListener('activate', function (event) {
+  console.log('Service Worker activating.');
+  event.waitUntil(
+    caches.keys().then(function (keys) {
+      return Promise.all(
+        keys
+          .filter(function (key) {
+            return key !== CACHE_NAME;
+          })
+          .map(function (key) {
+            return caches.delete(key);
+          })
+      );
+    }).then(function () {
+      return self.clients.claim();
+    })
+  );
+});
+
+self.addEventListener('fetch', function (event) {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  event.respondWith(
+    fetch(event.request)
+      .then(function (response) {
+        if (response && response.ok) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(function (cache) {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return response;
+      })
+      .catch(function () {
+        return caches.match(event.request).then(function (cachedResponse) {
+          return cachedResponse || caches.match('./index.html');
+        });
+      })
+  );
 });
 
