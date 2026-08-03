@@ -6,6 +6,7 @@
 :root {
   --bg-color: #1f1f1f;
   --text-color: #fff;
+  --text-color2: #ffffff8b;
   --nav-color: #262626;
   --accent-color: #755f49;
   --accent-color4: #56473a;
@@ -164,6 +165,17 @@ input, select, textarea {
   background-color: var(--nav-color);
 }
 
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60vw;
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  background-color: var(--nav-color);
+}
+
 .ico {
  width: 1rem;
  height: 1rem;
@@ -265,7 +277,26 @@ main {
   background-color: var(--accent-color2);
 }
 
+.point-content {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+}
 
+.line-content {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+}
+
+.content-text {
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  color: var(--text-color2);
+}
 
 .form {
   display: flex;

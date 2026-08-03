@@ -21,12 +21,31 @@ async function renderLists() {
     const listContainer = document.getElementById("listContainer");
     const lists = await getLists();
     
+    const formatShortDate = (datetimeLocalStr) => {
+    if (!datetimeLocalStr) return "";
+
+    const dateObj = new Date(datetimeLocalStr);
+    const today = new Date();
+
+    // Strip hours/minutes/seconds to accurately check if it is the same calendar day
+    const isToday = dateObj.setHours(0,0,0,0) === today.setHours(0,0,0,0);
+    
+    // Re-parse the original string to get the user's selected time back
+    const finalDate = new Date(datetimeLocalStr);
+    const dateStr = finalDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+    return isToday 
+        ? `Today ${finalDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }).toLowerCase().replace(' ', '')}`
+        : dateStr;
+    };
+
+
     listContainer.innerHTML = "";
 
     lists.forEach(list => {
         const point = document.createElement("div");
         point.className = "point";
-        point.innerHTML = `<span>${list.title}</span> <button class="point-delete-btn" data-id="${list.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
+        point.innerHTML = `<div class="point-content"><span>${list.title}</span><p class="content-text">${formatShortDate(list.date)}</p></div> <button class="point-delete-btn" data-id="${list.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
         listContainer.appendChild(point);
     });
 }
@@ -40,10 +59,11 @@ listForm.addEventListener("submit", async (event) => {
         console.log("Form submitted");
         const formData = new FormData(listForm);
         const title = formData.get("title");
-        console.log("Form read: ", title);
+        const date = formData.get("date");
+        console.log("Form read: ", title, date);
         if (!title) { return; }
     
-        await createList(title);
+        await createList(title, date);
     
         renderLists();
     });
@@ -53,15 +73,17 @@ createListButton.addEventListener("click", async () => {
 });
 
 listContainer.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("point-delete-btn")) {
-        const id = event.target.dataset.id;
-        
-        if (!id) { return; }
-        
-        await deleteList(id);
-        
-        renderLists();
-    }
+
+    const button = event.target.closest(".point-delete-btn");
+
+    if (!button) return;
+
+    const id = button.dataset.id;
+
+    await deleteList(id);
+
+    await renderLists();
+
 });
 
 //-------------------------------------------------------------------------//
@@ -74,8 +96,8 @@ async function renderWrites() {
 
     writes.forEach(write => {
         const line = document.createElement("div");
-        line.className = "point";
-        line.innerHTML = `<span>${write.title}</span> <button class="line-delete-btn" id="deleteWriteButton" data-id="${write.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
+        line.className = "line";
+        line.innerHTML = `<div class="line-content"><span>${write.title}</span><p class="content-text">${write.content}</p></div> <button class="line-delete-btn" id="deleteWriteButton" data-id="${write.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
         writeContainer.appendChild(line);
     });
 }
@@ -89,10 +111,11 @@ writeForm.addEventListener("submit", async (event) => {
         console.log("Form submitted");
         const formData = new FormData(writeForm);
         const title = formData.get("title");
-        console.log("Form read: ", title);
+        const content = formData.get("content");
+        console.log("Form read: ", title, content);
         if (!title) { return; }
     
-        await createWrite(title);
+        await createWrite(title, content);
     
         renderWrites();
     });
@@ -102,15 +125,17 @@ createWriteButton.addEventListener("click", async () => {
 });
 
 writeContainer.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("line-delete-btn")) {
-        const id = event.target.dataset.id;
-        
-        if (!id) { return; }
-        
-        await deleteWrite(id);
-        
-        renderWrites();
-    }
+
+    const button = event.target.closest(".line-delete-btn");
+
+    if (!button) return;
+
+    const id = button.dataset.id;
+
+    await deleteWrite(id);
+
+    await renderWrites();
+
 });
 //-------------------------------------------------------------------------//
 
