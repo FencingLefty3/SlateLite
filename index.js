@@ -17,6 +17,31 @@ function openListCreateDialog() {
     listCreateDialog.showModal();
 }
 
+function attachDialogCloseBehavior(dialog) {
+    dialog.addEventListener('click', (event) => {
+        const rect = dialog.getBoundingClientRect();
+        const clickedInside =
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom;
+
+        if (!clickedInside) {
+            dialog.close();
+            const form = dialog.querySelector('form');
+            if (form) form.reset();
+        }
+    });
+
+    dialog.addEventListener('cancel', () => {
+        const form = dialog.querySelector('form');
+        if (form) form.reset();
+    });
+}
+
+attachDialogCloseBehavior(writeCreateDialog);
+attachDialogCloseBehavior(listCreateDialog);
+
 //--//
 
 async function renderLists() {
