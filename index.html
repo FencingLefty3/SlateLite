@@ -40,18 +40,18 @@
     <hr width="65%">  
 
     <div id="writeContainer"></div>
-
-    <dialog id="writeCreate" >
-        <form id="writeCreateFrm">
-            <input name="title" required type="text" placeholder="Title" id="writeTitleInput">
-            <input name="content" type="text" placeholder="Write your text here..." id="writeTextInput">
+<!--================================================================-->
+    <dialog id="writeCreate">
+        <form id="writeCreateFrm" class="writeCreateFrm">
+            <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Line Name" id="writeTitleInput">
+            <input class="formInput2" name="content" type="text" placeholder="Description" id="writeTextInput"></div>
             <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
         </form>
     </dialog>
     <dialog id="listCreate">
-        <form  id="listCreateFrm">
-            <input name="title" required type="text" placeholder="Title" id="listTitleInput">
-            <input name="date" type="datetime-local" id="listDateInput">
+        <form  id="listCreateFrm" class="listCreateFrm">
+            <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Point Name" id="listTitleInput">
+            <input class="formInput2" name="date" type="datetime-local" placeholder="Date" id="listDateInput"></div>
             <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
         </form>
     </dialog >

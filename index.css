@@ -112,7 +112,7 @@ dialog::backdrop {
   opacity: 1;
 }
 
-input, select, textarea {
+input, select {
   background: var(--accent-color2);
   border: none;
   color: var(--text-color);
@@ -217,7 +217,7 @@ button:hover {
   background-color: var(--accent-color2);
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder {
   color: #b8b8b8;
   opacity: 0.7;
 }
@@ -298,10 +298,41 @@ main {
   color: var(--text-color2);
 }
 
+.writeCreateFrm {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+}
+
+.listCreateFrm {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+}
+
 .form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.formInput {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  padding: 0;
+  border-radius: 4px;
+  opacity: .7;
+}
+.formInput2 {
+  background: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  color: var(--text-color2);
 }
 
 a:link {
