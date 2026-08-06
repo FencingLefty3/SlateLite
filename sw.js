@@ -15,7 +15,12 @@ const APP_SHELL = [
   './icons/square-pen.svg',
   './icons/search.svg',
   './icons/funnel.svg',
-  './icons/database-arrow-down.svg'
+  './icons/database-arrow-down.svg',
+  './icons/tags/info.svg',
+  './icons/tags/star.svg',
+  './icons/tags/tally-2.svg',
+  './icons/tags/tally-3.svg',
+  './icons/tags/tally-4.svg'
 ];
 
 self.addEventListener('install', function (event) {
