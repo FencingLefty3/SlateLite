@@ -8,6 +8,7 @@ const APP_SHELL = [
   './database.js',
   './js/dexie.min.js',
   './icons/square-pen.png',
+  './icons/arrow-up.svg',
   './icons/180.png',
   './icons/256.png',
   './icons/trash.svg',

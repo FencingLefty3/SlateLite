@@ -17,13 +17,17 @@
 </head>
 <body>
     <h1>Slate <span style="color: var(--accent-color3);">Lite</span></h1>
-
     <div class="row-section">
         <nav class="filters">
-            <button>All Time</button>
-            <button>Today</button>
-            <button>This Week</button>
-            <button>Later</button>
+            <!-- <button class="btn2" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button> -->
+            <ul>
+                <button><p style="font-size: 1rem; padding: 0; margin: 0;">All</p></button>
+                <button><img class="svg" src="icons/tags/info.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/star.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"></button>
+            </ul>
         </nav>
         <div class="searchBar">
             <input type="text" placeholder="Search tasks...">
@@ -45,19 +49,21 @@
         <form id="writeCreateFrm" class="writeCreateFrm">
             <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Line Name" id="writeTitleInput">
             <input class="formInput2" name="content" type="text" placeholder="Description" id="writeTextInput"></div>
-            <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="writeFilterInput" class="subbtn"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
+            <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
         </form>
     </dialog>
     <dialog id="listCreate">
         <form  id="listCreateFrm" class="listCreateFrm">
             <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Point Name" id="listTitleInput">
             <input class="formInput2" name="date" type="datetime-local" placeholder="Date" id="listDateInput"></div>
-            <button type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
+            <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
         </form>
     </dialog >
 </body>
 <footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">
-    <p>Open source on <a href="https://github.com/FencingLefty3/SlateLite">GitHub</a>.</p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage.</a>
+    <p><a href="https://github.com/FencingLefty3/SlateLite">V8.6.26.1</a></p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage</a>
 </footer>
 
 <script src="js/dexie.min.js"></script>
