@@ -9,13 +9,15 @@ db.version(1).stores({
     settings: "key"
 });
 
-async function createList(title, date) {
-    return await db.lists.add({
+async function createList(title, date, tag) {
+    
+        return await db.lists.add({
 
         id: crypto.randomUUID(),
 
         title,
         date,
+        tag: tags[tag] || "icons/blank.svg",
 
         createdAt: Date.now()
     });
@@ -33,13 +35,14 @@ async function deleteList(id) {
     await db.lists.delete(id);
 }
 
-async function createWrite(title, content) {
+async function createWrite(title, content, tag) {
     return await db.writes.add({
 
         id: crypto.randomUUID(),
 
         title,
         content,
+        tag: tags[tag] || tags[0],
 
         updatedAt: Date.now()
     });
@@ -50,7 +53,7 @@ async function getWrites() {
 }
 
 async function updateWrite(id, title, content) {
-    await db.writes.update(id, { title, content });
+    await db.writes.update(id, { title, contentvalue });
 }
 
 async function deleteWrite(id) {

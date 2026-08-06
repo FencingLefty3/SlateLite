@@ -44,26 +44,34 @@
     <hr width="65%">  
 
     <div id="writeContainer"></div>
+    <div class="line">
+            
+
+        
+    </div>
 <!--================================================================-->
     <dialog id="writeCreate">
         <form id="writeCreateFrm" class="writeCreateFrm">
+            <input type="hidden" name="tag" id="writeTagInput" value="0">
             <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Line Name" id="writeTitleInput">
             <input class="formInput2" name="content" type="text" placeholder="Description" id="writeTextInput"></div>
-            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="writeFilterInput" class="subbtn"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="writeFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
             <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
         </form>
     </dialog>
     <dialog id="listCreate">
         <form  id="listCreateFrm" class="listCreateFrm">
+            <input type="hidden" name="tag" id="listTagInput" value="0">
             <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Point Name" id="listTitleInput">
             <input class="formInput2" name="date" type="datetime-local" placeholder="Date" id="listDateInput"></div>
-            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
             <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
         </form>
     </dialog >
+    
 </body>
 <footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">
-    <p><a href="https://github.com/FencingLefty3/SlateLite">V8.6.26.2</a></p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage</a>
+    <p><a href="https://github.com/FencingLefty3/SlateLite">V8.6.26.3</a></p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage</a>
 </footer>
 
 <script src="js/dexie.min.js"></script>

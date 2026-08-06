@@ -1,6 +1,15 @@
 //const lists = [];
 //const writes = [];
 
+const tags = {
+    0: "icons/funnel.svg",
+    1: "icons/tags/info.svg",
+    2: "icons/tags/star.svg",
+    3: "icons/tags/tally-2.svg",
+    4: "icons/tags/tally-3.svg",
+    5: "icons/tags/tally-4.svg"
+};
+
 const writeCreateDialog = document.getElementById("writeCreate");
 const listCreateDialog = document.getElementById("listCreate");
 const listContainer = document.getElementById("listContainer");
@@ -72,7 +81,16 @@ async function renderLists() {
     lists.forEach(list => {
         const point = document.createElement("div");
         point.className = "point";
-        point.innerHTML = `<div class="point-content"><span>${list.title}</span><p class="content-text">${formatShortDate(list.date)}</p></div> <button class="point-delete-btn" data-id="${list.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
+        const tagPath = list.tag === "icons/funnel.svg" || list.tag === "0" || !list.tag
+            ? "icons/blank.svg"
+            : list.tag;
+        point.innerHTML = `<div class="point-content">
+                <span>${list.title}</span>
+                <p class="content-text">${formatShortDate(list.date)}<img style="width: 1rem; height: 1rem; padding-left: 5px;" class="ico" src="${tagPath}" alt="Tag"></p>
+            </div>
+
+        </div>
+        <button class="point-delete-btn" data-id="${list.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
         listContainer.appendChild(point);
     });
 }
@@ -80,6 +98,15 @@ async function renderLists() {
 const createListButton = document.getElementById("createListButton");
 
 const listForm = document.getElementById("listCreateFrm");
+const listTagInput = document.getElementById("listTagInput");
+const listFilterButton = document.getElementById("listFilterInput");
+
+listFilterButton.addEventListener("click", () => {
+    const nextTag = (parseInt(listTagInput.value || "0", 10) + 1) % Object.keys(tags).length;
+    listTagInput.value = nextTag;
+    listFilterButton.querySelector("img").src = tags[nextTag];
+});
+       
 
 listForm.addEventListener("submit", async (event) => { 
        
@@ -87,10 +114,11 @@ listForm.addEventListener("submit", async (event) => {
         const formData = new FormData(listForm);
         const title = formData.get("title");
         const date = formData.get("date");
-        console.log("Form read: ", title, date);
+        const tag = formData.get("tag") ?? 0;
+        console.log("Form read: ", title, date, tag);
         if (!title) { return; }
     
-        await createList(title, date);
+        await createList(title, date, tag);
     
         renderLists();
     });
@@ -124,7 +152,17 @@ async function renderWrites() {
     writes.forEach(write => {
         const line = document.createElement("div");
         line.className = "line";
-        line.innerHTML = `<div class="line-content"><span>${write.title}</span><p class="content-text">${write.content}</p></div> <button class="line-delete-btn" id="deleteWriteButton" data-id="${write.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
+        const tagPath = write.tag === "icons/funnel.svg" || write.tag === "0" || !write.tag
+            ? "icons/blank.svg"
+            : write.tag;
+        line.innerHTML = ` <div class="line-content">
+                <span>${write.title}</span>
+                <p class="content-text">${write.content}<img style="width: 1rem; height: 1rem; padding-left: 5px;" class="ico" src="${tagPath}" alt="Tag"></p>
+            </div>
+        </div>
+        <button class="line-delete-btn" id="deleteWriteButton" data-id="${write.id}">
+            <img class="ico" src="icons/trash.svg" alt="trash">
+        </button>`;
         writeContainer.appendChild(line);
     });
 }
@@ -132,6 +170,14 @@ async function renderWrites() {
 const createWriteButton = document.getElementById("createWriteButton");
 
 const writeForm = document.getElementById("writeCreateFrm");
+const writeTagInput = document.getElementById("writeTagInput");
+const writeFilterButton = document.getElementById("writeFilterInput");
+
+writeFilterButton.addEventListener("click", () => {
+    const nextTag = (parseInt(writeTagInput.value || "0", 10) + 1) % Object.keys(tags).length;
+    writeTagInput.value = nextTag;
+    writeFilterButton.querySelector("img").src = tags[nextTag];
+});
 
 writeForm.addEventListener("submit", async (event) => { 
        
@@ -139,10 +185,11 @@ writeForm.addEventListener("submit", async (event) => {
         const formData = new FormData(writeForm);
         const title = formData.get("title");
         const content = formData.get("content");
-        console.log("Form read: ", title, content);
+        const tag = formData.get("tag") ?? 0;
+        console.log("Form read: ", title, content, tag);
         if (!title) { return; }
     
-        await createWrite(title, content);
+        await createWrite(title, content, tag);
     
         renderWrites();
     });
@@ -164,6 +211,33 @@ writeContainer.addEventListener("click", async (event) => {
     await renderWrites();
 
 });
+//-------------------------------------------------------------------------//
+
+const points = document.querySelectorAll('.point');
+points.forEach(point => {
+    point.addEventListener('click', () => {
+        const title = point.querySelector('span').textContent;
+        const date = point.querySelector('.content-text').textContent;
+        console.log(`Point clicked: ${title} - ${date}`);
+        listCreateDialog.querySelector('[name="title"]').value = title;
+        listCreateDialog.querySelector('[name="date"]').value = date;
+        openListCreateDialog()
+    });
+});
+
+const lines = document.querySelectorAll('.line');
+lines.forEach(line => {
+    line.addEventListener('click', () => {
+        const title = line.querySelector('span').textContent;
+        const content = line.querySelector('.content-text').textContent;
+        console.log(`Line clicked: ${title} - ${content}`);
+        writeCreateDialog.querySelector('[name="title"]').value = title;
+        writeCreateDialog.querySelector('[name="content"]').value = content;
+        openWriteCreateDialog()
+    });
+});
+
+
 //-------------------------------------------------------------------------//
 
 
