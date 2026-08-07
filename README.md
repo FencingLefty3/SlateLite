@@ -12,6 +12,14 @@ A simple and lightweight note-taking & todo app.
 
 
 
+## Features
+
+- Tasks (Lists) and Notes (Writes)
+- Task tags & sorting
+- Mobile and Desktop PWA
+- Offline Caching
+
+
 
 
 
