@@ -22,7 +22,7 @@ Install Slate Lite as a PWA.
 
 - Windows (Chrome/Edge):
 ```bash
-  Adress bar > Install
+  Address bar > Install
 ```
 ___
 - Mac:
@@ -30,17 +30,17 @@ ___
   Safari:
   File > Add to Dock
   Chrome:
-  Adress Bar > Install
+  Address Bar > Install
 ```
 ___
 - iOS (Safari):
 ```bash
-  Share > More/Scroll > Add to home screen (Web App)
+  Share > More/Scroll > Add to Home Screen (Web App)
 ```
 ___
 - Android:
 ```bash
-   3-dot menu > add to homescreen/install 
+   3-dot menu > Add to Home Screen / Install
 ```
 ## Run Locally
 
