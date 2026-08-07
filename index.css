@@ -17,7 +17,6 @@
 /*==================================*/
 body {
   margin: 0;
-  padding: 1em;
   align-items: center;
   justify-content: top;
   display: flex;
@@ -112,6 +111,25 @@ dialog::backdrop {
   opacity: 1;
 }
 
+.tagDialog {
+  flex-direction: column;
+  min-width: 10% !important;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 2%;
+  right: 60%;
+}
+
+.filtersDialog {
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
 input, select {
   background: var(--accent-color2);
   border: none;
@@ -129,9 +147,44 @@ input, select {
   border-radius: 4px;
   opacity: .7;
   cursor: pointer;
+  
 }
 
 .btn2:hover {
+  background-color: var(--accent-color) !important;
+}
+
+@media (max-width: 445px) {
+  .btnNav {
+    display: block !important;
+  }
+}
+@media (max-width: 445px) {
+  .filterButtons {
+    display: none !important;
+  }
+}
+
+.filterButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.btnNav {
+  background: var(--accent-color2);
+  border: none;
+  color: var(--text-color);
+  padding: 8px;
+  border-radius: 4px;
+  opacity: .7;
+  cursor: pointer;
+  display: none;
+}
+
+.btnNav:hover {
   background-color: var(--accent-color) !important;
 }
 

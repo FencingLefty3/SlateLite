@@ -19,15 +19,16 @@
     <h1>Slate <span style="color: var(--accent-color3);">Lite</span></h1>
     <div class="row-section">
         <nav class="filters">
-            <!-- <button class="btn2" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button> -->
-            <ul>
-                <button><p style="font-size: 1rem; padding: 0; margin: 0;">All</p></button>
+            
+             <button class="btnNav" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button>
+            <div class ="filterButtons">
+                <button><img class="svg" src="icons/tags/all.svg" alt="Filter"></button>
                 <button><img class="svg" src="icons/tags/info.svg" alt="Filter"></button>
                 <button><img class="svg" src="icons/tags/star.svg" alt="Filter"></button>
                 <button><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"></button>
                 <button><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"></button>
                 <button><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"></button>
-            </ul>
+            </div>
         </nav>
         <div class="searchBar">
             <input type="text" placeholder="Search tasks...">
@@ -67,7 +68,17 @@
             <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/funnel.svg" alt="Tag"></button>
             <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
         </form>
-    </dialog >
+    </dialog>
+    <dialog class="tagDialog" id="tagDialog">
+        <nav class="filtersDialog">
+                <button><img class="svg" src="icons/tags/all.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/info.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/star.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"></button>
+                <button><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"></button>
+        </nav>
+    </dialog>
     
 </body>
 <footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">

@@ -16,6 +16,7 @@ const APP_SHELL = [
   './icons/search.svg',
   './icons/funnel.svg',
   './icons/database-arrow-down.svg',
+  './icons/tags/all.svg',
   './icons/tags/info.svg',
   './icons/tags/star.svg',
   './icons/tags/tally-2.svg',

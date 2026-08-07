@@ -12,6 +12,7 @@ const tags = {
 
 const writeCreateDialog = document.getElementById("writeCreate");
 const listCreateDialog = document.getElementById("listCreate");
+const tagDialog = document.getElementById("tagDialog");
 const listContainer = document.getElementById("listContainer");
 const writeContainer = document.getElementById("writeContainer");
 
@@ -25,6 +26,16 @@ function openWriteCreateDialog() {
 function openListCreateDialog() {
     listCreateDialog.showModal();
 }
+
+function openTagDialog() {
+    tagDialog.showModal();
+}
+
+const tagDialogButton = document.getElementById("mobile-menu");
+
+tagDialogButton.addEventListener("click", async () => {
+    openTagDialog()    
+});
 
 function attachDialogCloseBehavior(dialog) {
     dialog.addEventListener('click', (event) => {
@@ -50,6 +61,7 @@ function attachDialogCloseBehavior(dialog) {
 
 attachDialogCloseBehavior(writeCreateDialog);
 attachDialogCloseBehavior(listCreateDialog);
+attachDialogCloseBehavior(tagDialog);
 
 //--//
 
