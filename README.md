@@ -37,7 +37,7 @@ https://fencinglefty3.github.io/SlateLite/
 
 ## Installation
 
-Install Slate Lite as a PWA.
+Install Slate Lite as a PWA. Open web above:
 
 
 - Windows (Chrome/Edge):
