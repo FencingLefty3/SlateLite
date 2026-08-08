@@ -27,8 +27,8 @@ async function getLists() {
     return await db.lists.toArray();
 }
 
-async function updateList(id, title, date) {
-    await db.lists.update(id, { title, date });
+async function updateList(id, title, date, tag) {
+    return await db.lists.update(id, { title, date, tag: tags[tag] || "icons/blank.svg" });
 }
 
 async function deleteList(id) {
@@ -52,8 +52,8 @@ async function getWrites() {
     return await db.writes.toArray();
 }
 
-async function updateWrite(id, title, content) {
-    await db.writes.update(id, { title, contentvalue });
+async function updateWrite(id, title, content, tag) {
+    return await db.writes.update(id, { title, content, tag: tags[tag] || tags[0] });
 }
 
 async function deleteWrite(id) {

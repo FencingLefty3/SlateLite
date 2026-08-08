@@ -1,8 +1,10 @@
 //const lists = [];
 //const writes = [];
 
+
+
 const tags = {
-    0: "icons/funnel.svg",
+    0: "icons/tags/all.svg",
     1: "icons/tags/info.svg",
     2: "icons/tags/star.svg",
     3: "icons/tags/tally-2.svg",
@@ -18,6 +20,9 @@ const writeContainer = document.getElementById("writeContainer");
 
 const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");
+let activeTag = null;
+let editingWriteId = null;
+let editingListId = null;
 
 function openWriteCreateDialog() {
     writeCreateDialog.showModal();
@@ -65,7 +70,7 @@ attachDialogCloseBehavior(tagDialog);
 
 //--//
 
-async function renderLists() {
+async function renderLists(filterTag = activeTag) {
     const listContainer = document.getElementById("listContainer");
     const lists = await getLists();
     
@@ -90,10 +95,12 @@ async function renderLists() {
 
     listContainer.innerHTML = "";
 
-    lists.forEach(list => {
+    lists
+        .filter(list => !filterTag || list.tag === filterTag)
+        .forEach(list => {
         const point = document.createElement("div");
         point.className = "point";
-        const tagPath = list.tag === "icons/funnel.svg" || list.tag === "0" || !list.tag
+        const tagPath = list.tag === "icons/tags/all.svg" || list.tag === "0" || !list.tag
             ? "icons/blank.svg"
             : list.tag;
         point.innerHTML = `<div class="point-content">
@@ -130,41 +137,70 @@ listForm.addEventListener("submit", async (event) => {
         console.log("Form read: ", title, date, tag);
         if (!title) { return; }
     
-        await createList(title, date, tag);
+        if (editingListId) {
+            await updateList(editingListId, title, date, tag);
+            editingListId = null;
+        } else {
+            await createList(title, date, tag);
+        }
     
         renderLists();
     });
 
 createListButton.addEventListener("click", async () => {
+    editingListId = null;
     openListCreateDialog()    
 });
 
 listContainer.addEventListener("click", async (event) => {
+    console.log("List container clicked");
 
     const button = event.target.closest(".point-delete-btn");
 
-    if (!button) return;
+    if (button) {
+        const id = button.dataset.id;
 
-    const id = button.dataset.id;
+        await deleteList(id);
 
-    await deleteList(id);
+        await renderLists();
+        return;
+    }
+    console.log("Clicked on a list item");
 
-    await renderLists();
+    const point = event.target.closest(".point");
+
+    if (!point) return;
+
+    const list = await db.lists.get(point.querySelector(".point-delete-btn").dataset.id);
+
+    if (!list) return;
+
+    editingListId = list.id;
+    listForm.querySelector('[name="title"]').value = list.title;
+    listForm.querySelector('[name="date"]').value = list.date;
+    listForm.querySelector('[name="tag"]').value = Object.keys(tags).find(
+        tagIndex => tags[tagIndex] === list.tag
+    ) || "0";
+    listTagInput.value = listForm.querySelector('[name="tag"]').value;
+    listFilterButton.querySelector("img").src = tags[listTagInput.value];
+    openListCreateDialog();
 
 });
 
 //-------------------------------------------------------------------------//
 
-async function renderWrites() {
+async function renderWrites(filterTag = activeTag) {
     const writeContainer = document.getElementById("writeContainer");
     const writes = await getWrites();
     
     writeContainer.innerHTML = "";
 
-    writes.forEach(write => {
+    writes
+    .filter(write => !filterTag || write.tag === filterTag)
+    .forEach(write => {
         const line = document.createElement("div");
         line.className = "line";
-        const tagPath = write.tag === "icons/funnel.svg" || write.tag === "0" || !write.tag
+        const tagPath = write.tag === "icons/tags/all.svg" || write.tag === "0" || !write.tag
             ? "icons/blank.svg"
             : write.tag;
         line.innerHTML = ` <div class="line-content">
@@ -201,12 +237,18 @@ writeForm.addEventListener("submit", async (event) => {
         console.log("Form read: ", title, content, tag);
         if (!title) { return; }
     
-        await createWrite(title, content, tag);
+        if (editingWriteId) {
+            await updateWrite(editingWriteId, title, content, tag);
+            editingWriteId = null;
+        } else {
+            await createWrite(title, content, tag);
+        }
     
         renderWrites();
     });
 
 createWriteButton.addEventListener("click", async () => {
+    editingWriteId = null;
     openWriteCreateDialog()    
 });
 
@@ -214,16 +256,51 @@ writeContainer.addEventListener("click", async (event) => {
 
     const button = event.target.closest(".line-delete-btn");
 
-    if (!button) return;
+    if (button) {
+        const id = button.dataset.id;
 
-    const id = button.dataset.id;
+        await deleteWrite(id);
 
-    await deleteWrite(id);
+        await renderWrites();
+        return;
+    }
 
-    await renderWrites();
+    const line = event.target.closest(".line");
+
+    if (!line) return;
+
+    const write = await db.writes.get(line.querySelector(".line-delete-btn").dataset.id);
+
+    if (!write) return;
+
+    editingWriteId = write.id;
+    writeForm.querySelector('[name="title"]').value = write.title;
+    writeForm.querySelector('[name="content"]').value = write.content;
+    writeForm.querySelector('[name="tag"]').value = Object.keys(tags).find(
+        tagIndex => tags[tagIndex] === write.tag
+    ) || "0";
+    writeTagInput.value = writeForm.querySelector('[name="tag"]').value;
+    writeFilterButton.querySelector("img").src = tags[writeTagInput.value];
+    openWriteCreateDialog();
 
 });
 //-------------------------------------------------------------------------//
+
+document.querySelectorAll(".filterButtons button, .filtersDialog button").forEach(button => {
+    button.addEventListener("click", async () => {
+        const tagIndex = Number(button.dataset.tag);
+        activeTag = tagIndex === 0 ? null : tags[tagIndex];
+
+        await Promise.all([
+            renderLists(),
+            renderWrites()
+        ]);
+
+        if (tagDialog.open) {
+            tagDialog.close();
+        }
+    });
+});
 
 const points = document.querySelectorAll('.point');
 points.forEach(point => {
