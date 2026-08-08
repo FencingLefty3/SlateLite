@@ -6,7 +6,7 @@ A simple and lightweight note-taking & todo app.
 ![Static Badge](https://img.shields.io/badge/Licence-_MPL--2.0-blue?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/PWA-gray?style=for-the-badge&logo=PWA&logoSize=auto&labelColor=gray&color=blue)
 ![Static Badge](https://img.shields.io/badge/Github%20Pages-gray?style=for-the-badge&logo=Github%20Pages&logoSize=auto&labelColor=gray&color=blue)
-![Static Badge](https://img.shields.io/badge/Version-8.7.26.2-gray?style=for-the-badge&logoSize=auto&labelColor=gray&color=blue)
+![Static Badge](https://img.shields.io/badge/Version-8.7.26.3b-gray?style=for-the-badge&logoSize=auto&labelColor=gray&color=blue)
 ![Static Badge](https://img.shields.io/badge/Release-1.0-gray?style=for-the-badge&logoSize=auto&labelColor=gray&color=blue)
 
 
