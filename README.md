@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 
 # Slate Lite
 
@@ -89,4 +87,3 @@ Start the LocalHost
 
 [Mozilla Public License 2.0](https://choosealicense.com/licenses/mpl-2.0/)
 
->>>>>>> a6089b1264e04962549a4ca5baf1bb2c3f204b3f
