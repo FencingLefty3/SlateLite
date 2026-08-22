@@ -1,6 +1,5 @@
 const CACHE_NAME = 'slatelite-cache-v2';
 const APP_SHELL = [
-  './',
   './index.html',
   './index.css',
   './manifest.json',
@@ -55,7 +54,7 @@ self.addEventListener('activate', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-  if (event.request.method !== 'GET') {
+  if (event.request.method !== 'GET' || !['http:', 'https:'].includes(new URL(event.request.url).protocol)) {
     return;
   }
 

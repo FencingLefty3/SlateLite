@@ -6,7 +6,7 @@ db.version(1).stores({
 
     writes: "id, title, updatedAt",
 
-    settings: "key"
+    settings: "theme"
 });
 
 async function createList(title, date, tag) {
@@ -58,6 +58,14 @@ async function updateWrite(id, title, content, tag) {
 
 async function deleteWrite(id) {
     await db.writes.delete(id);
+}
+
+async function getSettings() {
+    return await db.settings.toArray();
+}
+
+async function updateSettings(theme) {
+    return await db.settings.update(theme);
 }
 
 

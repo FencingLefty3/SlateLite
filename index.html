@@ -15,82 +15,112 @@
 
     <link rel="apple-touch-icon" href="icons/180.png">
 </head>
+
 <body>
-    <h1>Slate <span style="color: var(--accent-color3);">Lite</span></h1>
-    <div class="row-section">
-        <nav class="filters">
-            
-             <button class="btnNav" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button>
-            <div class ="filterButtons">
-                <button data-tag="0"><img class="svg" src="icons/tags/all.svg" alt="Filter"></button>
-                <button data-tag="1"><img class="svg" src="icons/tags/info.svg" alt="Filter"></button>
-                <button data-tag="2"><img class="svg" src="icons/tags/star.svg" alt="Filter"></button>
-                <button data-tag="3"><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"></button>
-                <button data-tag="4"><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"></button>
-                <button data-tag="5"><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"></button>
+    <div class="main-section" >
+    <div class="NAV">
+        <div class="row-section"><h1>Slate <span style="color: var(--accent-color3);">Lite</span></h1></div>
+        <div class="main-section-inverted">
+            <div class="row-section">
+                <search class="row-section">
+                    <form style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;" action="./search/">
+                        <input style="width: 70%;" type="search" placeholder="Search tasks...">
+                        <button type="submit" class="btn2"><img class="ico" src="icons/search.svg" alt="Search"></button>
+                    </form>
+                </search>
             </div>
-        </nav>
-        <div class="searchBar">
             
-            <search>
-                <form action="./search/">
-                    <input type="search" placeholder="Search tasks...">
-                    <button type="submit" class="btn2"><img class="ico" src="icons/search.svg" alt="Search"></button>
-                </form>
-            </search>
+            <nav class="filters" style="justify-content: center;display: flex;">
+                
+                <button class="btnNav" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button>
+                <div class ="filterButtons">
+                    <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/all.svg" alt="Filter"><p style="margin: 0;">All Tags</p></button>
+                    <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/info.svg" alt="Filter"><p style="margin: 0;">Info</p></button>
+                    <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/star.svg" alt="Filter"><p style="margin: 0;">Star</p></button>
+                    <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"><p style="margin: 0;">Tally 2</p></button>
+                    <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"><p style="margin: 0;">Tally 3</p></button>
+                    <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"><p style="margin: 0;">Tally 4</p></button>
+                </div>
+            </nav>
+            
         </div>
+    </div>   <div class="main"> <div class="body">
+        <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
+        <hr width="65%" style="margin-bottom: 2rem;">
+
+        <div id="listContainer"></div>
         
-    </div>
-    
-    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
-    <hr width="65%">
+        <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
+        <hr width="65%"  style="margin-bottom: 2rem;">  
 
-    <div id="listContainer"></div>
-    
-    <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">Write</h5> <button id="createWriteButton" class="addbtn" style="color: var(--accent-color3);">Create</button></div>
-    <hr width="65%">  
+        <div id="writeContainer"></div>
+        
+                
 
-    <div id="writeContainer"></div>
-    
             
-
+    <!--================================================================-->
+        <dialog id="writeCreate">
+            <form id="writeCreateFrm" class="writeCreateFrm">
+                <input  type="hidden" name="tag" id="writeTagInput" value="0">
+                <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Line Name" id="writeTitleInput">
+                <input class="formInput2" name="content" type="text" placeholder="Content" id="writeTextInput"></div>
+                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button data-tooltip="Tags" style="width: 10%;" type="button" name="filter" id="writeFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/tags/all.svg" alt="Tag"></button>
+                <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
+            </form>
+        </dialog>
+        <dialog id="listCreate">
+            <form  id="listCreateFrm" class="listCreateFrm">
+                <input type="hidden" name="tag" id="listTagInput" value="0">
+                <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Point Name" id="listTitleInput">
+                <input class="formInput2" name="date" type="datetime-local" placeholder="Date" id="listDateInput"></div>
+                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button data-tooltip="Tags" style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn" data-tag="0"><img  class="ico" src="icons/tags/all.svg" alt="Tag"></button>
+                <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
+            </form>
+        </dialog>
+        <dialog class="tagDialog" id="tagDialog">
+            <nav class="filtersDialog">
+                    <button data-tooltip="All Tags" data-tag="0"><img class="svg" src="icons/tags/all.svg" alt="Filter"></button>
+                    <button data-tooltip="Info Tag" data-tag="1"><img class="svg" src="icons/tags/info.svg" alt="Filter"></button>
+                    <button data-tooltip="Star Tag" data-tag="2"><img class="svg" src="icons/tags/star.svg" alt="Filter"></button>
+                    <button data-tooltip="Tally 2 Tag" data-tag="3"><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"></button>
+                    <button data-tooltip="Tally 3 Tag" data-tag="4"><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"></button>
+                    <button data-tooltip="Tally 4 Tag" data-tag="5"><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"></button>
+            </nav>
+        </dialog>
+        <dialog class="settingsDialog" id="settingsDialog">
+            <div class="settings">
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                    <div><h3 style="color: var(--text-color); margin: 0;">Theme</h3>
+                    <p style="color: var(--text-color2);  margin: 0;">Personalize the style of Slate.</p></div>
+                    <form id="colorPicker" class="colorPicker">
+                        <button name="color" class="circle" style="background-color: #FF453A; size: 2rem;"></button>
+                        <button name="color" class="circle" style="background-color: #FF9F0A; size: 2rem;"></button>
+                        <button name="color" class="circle" style="background-color: #FFD60A; size: 2rem;"></button>
+                        <button name="color" class="circle" style="background-color: #30D15B; size: 2rem;"></button>
+                        <button name="color" class="circle" style="background-color: #0A84FE; size: 2rem;"></button>
+                        <button name="color" class="circle" style="background-color: #D57FF4; size: 2rem;"></button>
+                        <button name="color" class="circle-outline" style="background-color: #b59372; size: 2rem;"></button>
+                    </form>
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 30px;">
+                    <p><a href="https://github.com/FencingLefty3/SlateLite">V8.7.26.3b</a></p>
+                    <p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage</a></p>
+                </div>
+                
+            </div>
+        </dialog>
         
+    
     </div>
-<!--================================================================-->
-    <dialog id="writeCreate">
-        <form id="writeCreateFrm" class="writeCreateFrm">
-            <input type="hidden" name="tag" id="writeTagInput" value="0">
-            <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Line Name" id="writeTitleInput">
-            <input class="formInput2" name="content" type="text" placeholder="Content" id="writeTextInput"></div>
-            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="writeFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/tags/all.svg" alt="Tag"></button>
-            <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
-        </form>
-    </dialog>
-    <dialog id="listCreate">
-        <form  id="listCreateFrm" class="listCreateFrm">
-            <input type="hidden" name="tag" id="listTagInput" value="0">
-            <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Point Name" id="listTitleInput">
-            <input class="formInput2" name="date" type="datetime-local" placeholder="Date" id="listDateInput"></div>
-            <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/tags/all.svg" alt="Tag"></button>
-            <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
-        </form>
-    </dialog>
-    <dialog class="tagDialog" id="tagDialog">
-        <nav class="filtersDialog">
-                <button data-tag="0"><img class="svg" src="icons/tags/all.svg" alt="Filter"></button>
-                <button data-tag="1"><img class="svg" src="icons/tags/info.svg" alt="Filter"></button>
-                <button data-tag="2"><img class="svg" src="icons/tags/star.svg" alt="Filter"></button>
-                <button data-tag="3"><img class="svg" src="icons/tags/tally-2.svg" alt="Filter"></button>
-                <button data-tag="4"><img class="svg" src="icons/tags/tally-3.svg" alt="Filter"></button>
-                <button data-tag="5"><img class="svg" src="icons/tags/tally-4.svg" alt="Filter"></button>
-        </nav>
-    </dialog>
-
-</body>
-<footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 20px;">
-    <p><a href="https://github.com/FencingLefty3/SlateLite">V8.7.26.3b</a></p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage</a>
-</footer>
-
+    <footer style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 30px;">
+        <p>MLP-2.0</p>
+        <div>
+            <a href="https://github.com/FencingLefty3/SlateLite/wiki/Slate-Lite-Wiki"><button id="openHelp" class="helpIcon"></button></a>
+            <button id="openSettings" class="settingsIcon"></button>
+        </div>
+    </footer>
+    </div>
+</body>  
 <script src="js/dexie.min.js"></script>
 <script src="database.js"></script>
 <script src="index.js"></script>

@@ -1,8 +1,6 @@
 //const lists = [];
 //const writes = [];
 
-
-
 const tags = {
     0: "icons/tags/all.svg",
     1: "icons/tags/info.svg",
@@ -15,6 +13,7 @@ const tags = {
 const writeCreateDialog = document.getElementById("writeCreate");
 const listCreateDialog = document.getElementById("listCreate");
 const tagDialog = document.getElementById("tagDialog");
+const settingsDialog = document.getElementById("settingsDialog");
 const listContainer = document.getElementById("listContainer");
 const writeContainer = document.getElementById("writeContainer");
 
@@ -32,6 +31,10 @@ function openListCreateDialog() {
     listCreateDialog.showModal();
 }
 
+function openSettingsDialog() {
+    settingsDialog.showModal();
+}
+
 function openTagDialog() {
     tagDialog.showModal();
 }
@@ -40,6 +43,12 @@ const tagDialogButton = document.getElementById("mobile-menu");
 
 tagDialogButton.addEventListener("click", async () => {
     openTagDialog()    
+});
+
+const settingsDialogButton = document.getElementById("openSettings");
+
+settingsDialogButton.addEventListener("click", async () => {
+    openSettingsDialog()    
 });
 
 function attachDialogCloseBehavior(dialog) {
@@ -67,6 +76,7 @@ function attachDialogCloseBehavior(dialog) {
 attachDialogCloseBehavior(writeCreateDialog);
 attachDialogCloseBehavior(listCreateDialog);
 attachDialogCloseBehavior(tagDialog);
+attachDialogCloseBehavior(settingsDialog);
 
 //--//
 
@@ -363,6 +373,6 @@ async function clearDatabase() {
 const clearDatabaseButton = document.getElementById("clearDatabaseButton");
 clearDatabaseButton.addEventListener("click", clearDatabase);
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
   navigator.serviceWorker.register('./sw.js')
 };
