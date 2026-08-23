@@ -56,6 +56,15 @@ async function updateWrite(id, title, content, tag) {
     return await db.writes.update(id, { title, content, tag: tags[tag] || tags[0] });
 }
 
+async function createSettings(theme) {
+    return await db.writes.add({
+
+        theme: theme || themes[0],
+
+        updatedAt: Date.now()
+    });
+}
+
 async function deleteWrite(id) {
     await db.writes.delete(id);
 }

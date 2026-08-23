@@ -9,7 +9,15 @@ const tags = {
     4: "icons/tags/tally-3.svg",
     5: "icons/tags/tally-4.svg"
 };
-
+const themes = {
+    0: ":root",
+    1: "Red",
+    2: "Orange",
+    3: "Yellow",
+    4: "Green",
+    5: "Blue",
+    6: "Pink"
+};
 const writeCreateDialog = document.getElementById("writeCreate");
 const listCreateDialog = document.getElementById("listCreate");
 const tagDialog = document.getElementById("tagDialog");
