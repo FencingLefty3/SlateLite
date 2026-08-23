@@ -57,12 +57,7 @@ async function updateWrite(id, title, content, tag) {
 }
 
 async function createSettings(theme) {
-    return await db.writes.add({
-
-        theme: theme || themes[0],
-
-        updatedAt: Date.now()
-    });
+    return await db.settings.put({ theme: theme || ":root" });
 }
 
 async function deleteWrite(id) {
@@ -74,7 +69,7 @@ async function getSettings() {
 }
 
 async function updateSettings(theme) {
-    return await db.settings.update(theme);
+    return await createSettings(theme);
 }
 
 

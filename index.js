@@ -27,6 +27,7 @@ const writeContainer = document.getElementById("writeContainer");
 
 const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");
+let activeTheme = null;
 let activeTag = null;
 let editingWriteId = null;
 let editingListId = null;
@@ -363,8 +364,64 @@ if (action === 'write') {
 }
 
 //-------------------------------------------------------------------------//
+const colorContainer = document.getElementById("colorPicker");
+
+colorContainer.addEventListener("click", async (event) => {
+    const button = event.target.closest("button[data-set]");
+    if (!button) return;
+    
+
+    const setIndex = Number(button.dataset.set);
+    activeTheme = setIndex === 0 ? null : themes[setIndex];
+    localStorage.setItem("slateLiteTheme", activeTheme || themes[0]);
+    
+
+    try {
+        await updateSettings(activeTheme || themes[0]);
+    } catch (error) {
+        console.error("Unable to save theme", error);
+    }
+    renderTheme();
+});
+
+function renderTheme(selectedTheme = activeTheme) {
+    const themeButtons = [
+        [0, "#b59372"],
+        [1, "#FF453A"],
+        [2, "#FF9F0A"],
+        [3, "#FFD60A"],
+        [4, "#30D15B"],
+        [5, "#0A84FE"],
+        [6, "#D57FF4"],
+
+    ];
+    const selectedIndex = selectedTheme
+        ? Number(Object.keys(themes).find(key => themes[key] === selectedTheme))
+        : 0;
+
+    document.documentElement.className = selectedTheme || "";
+    colorContainer.innerHTML = themeButtons.map(([index, color]) => `
+        <button type="button" name="color" class="${index === selectedIndex ? "circle-outline" : "circle"}" data-set="${index}" style="background-color: ${color};" aria-label="${themes[index] || "Default"} theme"></button>
+    `).join("");
+}
+
+//-------------------------------------------------------------------------//
 renderLists();
 renderWrites();
+renderTheme();
+
+async function loadTheme() {
+    try {
+        const settings = await getSettings();
+        const savedTheme = localStorage.getItem("slateLiteTheme") || settings[0]?.theme;
+        activeTheme = savedTheme && savedTheme !== themes[0] ? savedTheme : null;
+        renderTheme();
+    } catch (error) {
+        console.error("Unable to load saved theme", error);
+    }
+}
+
+loadTheme();
 
 async function clearDatabase() {
     const confirmation = confirm("Are you sure you want to clear the database? This action cannot be undone.");

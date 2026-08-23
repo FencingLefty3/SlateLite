@@ -1,56 +1,55 @@
 * {
-  transition: background-color 0.5s ease, color 0.5s ease;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 :root {
-  --bg-color: #1f1f1f;
-  --text-color: #fff;
-  --text-color2: #ffffff8b;
-  --nav-color: #262626;
+  --bg-color: #1c1c1e;
+  --text-color: #f2f2f7;
+  --text-color2: #ebebf599;
+  --nav-color: #2c2c2e;
 
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #755f4951;
-  --accent-color3: #b59372;
+  --accent-color: #8e8e93;
+  --accent-color4: #3a3a3c;
+  --accent-color2: #8e8e9338;
+  --accent-color3: #8e8e93;
 }
 
 .Red {
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #FF453A51;
-  --accent-color3: #FF453A;
+  --accent-color: #ff453a;
+  --accent-color4: #4a2422;
+  --accent-color2: #ff453a38;
+  --accent-color3: #ff453a;
 }
 
 .Orange {
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #FF9F0A51;
-  --accent-color3: #FF9F0A;
+  --accent-color: #ff9f0a;
+  --accent-color4: #4a351d;
+  --accent-color2: #ff9f0a38;
+  --accent-color3: #ff9f0a;
 }
 .Yellow {
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #FFD60A51;
-  --accent-color3: #FFD60A;
+  --accent-color: #ffd60a;
+  --accent-color4: #49411e;
+  --accent-color2: #ffd60a38;
+  --accent-color3: #ffd60a;
 }
 .Green {
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #30D15B51;
-  --accent-color3: #30D15B;
+  --accent-color: #30d158;
+  --accent-color4: #1e4229;
+  --accent-color2: #30d15838;
+  --accent-color3: #30d158;
 }
 .Blue {
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #0A84FE51;
-  --accent-color3: #0A84FE;
+  --accent-color: #0a84ff;
+  --accent-color4: #1d3853;
+  --accent-color2: #0a84ff38;
+  --accent-color3: #0a84ff;
 }
 .Pink {
-  --accent-color: #755f49;
-  --accent-color4: #56473a;
-  --accent-color2: #D57FF451;
-  --accent-color3: #D57FF4;
+  --accent-color: #ff375f;
+  --accent-color4: #4a2430;
+  --accent-color2: #ff375f38;
+  --accent-color3: #ff375f;
 }
 
 /*==================================*/
@@ -85,7 +84,6 @@ splash {
   justify-content: space-between; 
   padding: 5dvh;
   z-index: 9999; /* Ensure it stays on top of everything */
-  transition: opacity 0.5s ease-out, visibility 0.5s;
 }
 
 h3 {
@@ -172,8 +170,8 @@ dialog {
   position: fixed;
   top: 50%;
   opacity: 1;
-  border: rgba(117, 95, 73, 0.233) 3px solid;
-  box-shadow: 0 4px 10px rgba(117, 95, 73, 0.233);
+  border: var(--accent-color2) 3px solid;
+  box-shadow: 0 4px 10px var(--accent-color2);
   
 }
 
@@ -201,6 +199,8 @@ dialog::backdrop {
   align-items: center;
   position: fixed;
   top: 5%;
+  background-color: var(--bg-color);
+  border-color: var(--nav-color);
 }
 
 .settings {
@@ -565,8 +565,6 @@ a:hover {
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 4px;
-  transition: background-color 0.3s;
-  transition: opacity 0.3s;
 }
 
 .nav a:hover {
@@ -641,8 +639,6 @@ a:hover {
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 4px;
-  transition: background-color 0.3s;
-  transition: opacity 0.3s;
 }
 
 .navbtn:hover {
