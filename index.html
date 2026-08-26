@@ -63,8 +63,8 @@
             <form id="writeCreateFrm" class="writeCreateFrm">
                 <input  type="hidden" name="tag" id="writeTagInput" value="0">
                 <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Line Name" id="writeTitleInput">
-                <input class="formInput2" name="content" type="text" placeholder="Content" id="writeTextInput"></div>
-                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button data-tooltip="Tags" style="width: 10%;" type="button" name="filter" id="writeFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/tags/all.svg" alt="Tag"></button>
+                <textarea class="formInput2" name="content" type="text" placeholder="Content" id="writeTextInput"></textarea>
+                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%; display: flex; flex-direction: row; gap: 4px;" type="button" name="filter" id="writeFilterInput" class="subbtn" data-tag="0"><img class="ico" src="icons/tags/all.svg" alt="Tag"><p style="margin: 0;">Tags</p></button>
                 <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
             </form>
         </dialog>
@@ -73,7 +73,7 @@
                 <input type="hidden" name="tag" id="listTagInput" value="0">
                 <div style="display: flex;flex-direction: column;align-items: left;gap: 10px;"><input class="formInput" name="title" required type="text" placeholder="Point Name" id="listTitleInput">
                 <input class="formInput2" name="date" type="datetime-local" placeholder="Date" id="listDateInput"></div>
-                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button data-tooltip="Tags" style="width: 10%;" type="button" name="filter" id="listFilterInput" class="subbtn" data-tag="0"><img  class="ico" src="icons/tags/all.svg" alt="Tag"></button>
+                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;justify-content: space-between;"><button style="width: 10%; display: flex; flex-direction: row; gap: 4px;" type="button" name="filter" id="listFilterInput" class="subbtn" data-tag="0"><img  class="ico" src="icons/tags/all.svg" alt="Tag"><p style="margin: 0;">Tags</p></button>
                 <button style="width: 90%;" type="submit" class="subbtn"><img class="ico" src="icons/arrow-up.svg" alt="Search"></button></div>
             </form>
         </dialog>

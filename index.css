@@ -220,7 +220,7 @@ dialog::backdrop {
   padding: 15px;
 }
 
-input, select {
+input, select, textarea {
   background: var(--accent-color2);
   border: none;
   color: var(--text-color);
