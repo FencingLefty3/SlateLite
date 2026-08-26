@@ -16,7 +16,8 @@ const themes = {
     3: "Yellow",
     4: "Green",
     5: "Blue",
-    6: "Pink"
+    6: "Pink",
+    7: "Gray"
 };
 const writeCreateDialog = document.getElementById("writeCreate");
 const listCreateDialog = document.getElementById("listCreate");
@@ -393,6 +394,7 @@ function renderTheme(selectedTheme = activeTheme) {
         [4, "#30D15B"],
         [5, "#0A84FE"],
         [6, "#D57FF4"],
+        [7, "#8e8e93"]
 
     ];
     const selectedIndex = selectedTheme

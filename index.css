@@ -8,6 +8,13 @@
   --text-color2: #ebebf599;
   --nav-color: #2c2c2e;
 
+  --accent-color: #755f49;
+  --accent-color4: #56473a;
+  --accent-color2: #755f4951;
+  --accent-color3: #b59372;
+}
+
+.Gray {
   --accent-color: #8e8e93;
   --accent-color4: #3a3a3c;
   --accent-color2: #8e8e9338;
