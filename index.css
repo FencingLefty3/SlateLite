@@ -68,6 +68,7 @@ body {
   height: 100vh; 
   background: var(--bg-color);
   color: var(--text-color);
+  
 }
 
 .body {
@@ -75,6 +76,8 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
+      width: 100%;
+    height: 100%;
 }
 
 

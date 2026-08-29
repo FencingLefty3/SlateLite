@@ -21,18 +21,19 @@
     <div class="NAV">
         <div class="row-section"><h1>Slate <span style="color: var(--accent-color3);">Lite</span></h1></div>
         <div class="main-section-inverted">
-            <div class="row-section">
+            
                 <search class="row-section">
-                    <form style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;" action="./search/">
+                    <button class="btnNav" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button>
+                    <form style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;" action="./search/">
                         <input style="width: 70%;" type="search" placeholder="Search tasks...">
                         <button type="submit" class="btn2"><img class="ico" src="icons/search.svg" alt="Search"></button>
                     </form>
                 </search>
-            </div>
+            
             
             <nav class="filters" style="justify-content: center;display: flex;">
                 
-                <button class="btnNav" id="mobile-menu" aria-label="Toggle Navigation"><img class="ico" src="icons/funnel.svg" alt="Filter"></button>
+                
                 <div class ="filterButtons">
                     <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/all.svg" alt="Filter"><p style="margin: 0;">All Tags</p></button>
                     <button style="display: flex;flex-direction: row;gap: 10px; width: 10dvw;" data-tag="0"><img class="svg" src="icons/tags/info.svg" alt="Filter"><p style="margin: 0;">Info</p></button>
@@ -46,7 +47,7 @@
         </div>
     </div>   <div class="main"> <div class="body">
         <div style="justify-content: space-between; width: 60%;" class="row-section"><h5 style="margin: 0;">List</h5> <button id="createListButton" class="addbtn" style="color: var(--accent-color3); ">Create </button></div>
-        <hr width="65%" style="margin-bottom: 2rem;">
+        <hr style="margin-bottom: 2rem; width: 65%;">
 
         <div id="listContainer"></div>
         
