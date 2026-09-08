@@ -585,11 +585,11 @@ a:hover {
 .NAV {
   background-color: var(--nav-color);
   display: flex;
-      flex-direction: row;
+      flex-direction: column;
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: center;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
   top: 0;
   left: 0;
   height: 100dvh;
