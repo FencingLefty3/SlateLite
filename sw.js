@@ -21,7 +21,8 @@ const APP_SHELL = [
   './icons/tags/star.svg',
   './icons/tags/tally-2.svg',
   './icons/tags/tally-3.svg',
-  './icons/tags/tally-4.svg'
+  './icons/tags/tally-4.svg',
+  './icons/circle-user-round.svg'
 ];
 
 self.addEventListener('install', function (event) {
