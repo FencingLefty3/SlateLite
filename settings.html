@@ -18,20 +18,32 @@
 <body>
     <div class="main-section" >
 <div class="settings" id="settingsDialog">
-    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;width: 100%;flex-wrap: wrap;margin:2rem">
-        <div><h3 style="color: var(--text-color); margin: 0;">Theme</h3>
-        <p style="color: var(--text-color2);  margin: 0;">Personalize the style of Slate.</p></div>
-        <form id="colorPicker" class="colorPicker">
-        </form>
-    </div>
-    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;width: 100%;flex-wrap: wrap;margin:2rem">
-        <div><h3 style="color: var(--text-color); margin: 0;">Theme</h3>
-        <p style="color: var(--text-color2);  margin: 0;">Personalize the style of Slate.</p></div>
-        <form id="colorPicker" class="colorPicker">
-        </form>
+    <div class="column-section" style="width: 100%; justify-content: space-between; align-items: center; margin-top: 5rem;">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;width: 100%;flex-wrap: wrap;margin:0.5rem">
+            <div><h1 style="color: var(--text-color); margin: 0;">Settings</h1>
+            <h3 style="color: var(--text-color2);  margin: 0; font-weight: 400;">Manage the overall functions for Slate, such as theme and preferences.</h3></div>
+        </div>
+        <div>
+            <a href="./index.html"><button id="openSettings" class="backIcon"></button></a>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;width: 100%;flex-wrap: wrap;margin:0.5rem">
+            <div><h3 style="color: var(--text-color); margin: 0;">Theme</h3>
+            <p style="color: var(--text-color2);  margin: 0;">Personalize the style of Slate.</p></div>
+            <form id="colorPicker" class="colorPicker">
+            </form>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;width: 100%;flex-wrap: wrap;margin:0.5rem">
+            <div><h3 style="color: var(--text-color); margin: 0;">Elo</h3>
+            <p style="color: var(--text-color2);  margin: 0;">A score to help you get tasks done.</p></div>
+            <label class="toggle">
+                <input type="checkbox" id="btnToggle" name="btnToggle" />
+                <span class="slider"></span>
+            </label>
+            </form>
+        </div>
     </div>
     <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 65%; margin-top: 30px;">
-        <p><a href="https://github.com/FencingLefty3/SlateLite">V9.24.26.1</a></p>
+        <p><a href="https://github.com/FencingLefty3/SlateLite">V9.25.26.1</a></p>
         <p><a style="color: var(--accent-color3); cursor: pointer; text-decoration: underline;" id="clearDatabaseButton">Reset Storage</a></p>
     </div>
     

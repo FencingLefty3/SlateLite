@@ -218,7 +218,9 @@ dialog::backdrop {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 0.2rem;
   width: 100%;
+  padding: 0 2rem;
 }
 
 .filtersDialog {
@@ -306,6 +308,27 @@ input, select, textarea {
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling */
   padding-right: 1rem;
+}
+.backIcon {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  background: var(--accent-color2);
+  border: none;
+  color: var(--text-color);
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.backIcon::before {
+  content: "";
+  background-image: url('icons/arrow-left.svg');
+  background-size: cover; /* Forces image to fit the dimensions */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  padding-right: 2rem;
 }
 .helpIcon::before {
   content: "";
@@ -831,4 +854,53 @@ a:hover {
     left: 0.75rem;
     max-width: none;
   }
+}
+
+/*
+Source - https://stackoverflow.com/a/79274945
+Posted by Naeem Akhtar
+Retrieved 2026-09-25, License - CC BY-SA 4.0
+*/
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #333;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--text-color);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--accent-color3);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
