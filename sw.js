@@ -1,6 +1,7 @@
-const CACHE_NAME = 'slatelite-cache-v2';
+const CACHE_NAME = 'slatelite-cache-v3';
 const APP_SHELL = [
   './index.html',
+  './settings.html',
   './index.css',
   './manifest.json',
   './index.js',
