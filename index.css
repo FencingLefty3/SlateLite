@@ -309,6 +309,23 @@ input, select, textarea {
   background-repeat: no-repeat; /* Prevents tiling */
   padding-right: 1rem;
 }
+.userIcon {
+  padding: 1rem;
+  background: var(--accent-color2);
+  border: none;
+  color: var(--text-color);
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.userIcon::before {
+  content: "";
+  background-image: url('icons/circle-user-round.svg');
+  background-size: cover; /* Forces image to fit the dimensions */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  padding-right: 1.2rem;
+}
 .backIcon {
   position: fixed;
   top: 1rem;
@@ -652,7 +669,7 @@ a:hover {
     background: none !important;
     position: relative;
     width: 100lvw !important;
-    height: 200lvh !important;
+    height: auto !important;
     display: flex;
         flex-direction: row;
       flex-wrap: wrap;
