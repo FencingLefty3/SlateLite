@@ -429,7 +429,7 @@ input::placeholder {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 100lvh;
 }
 
 .column-section-bg {
@@ -472,6 +472,15 @@ input::placeholder {
 }
 
 
+.left-row-section {
+  display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 10%;
+}
 
 .row-section-bg {
   display: flex;
@@ -592,7 +601,7 @@ a:hover {
     justify-content: center;
   top: 0;
   left: 0;
-  height: 100dvh;
+  height: 100lvh;
   width: 20%;
 
 }
@@ -602,8 +611,8 @@ a:hover {
   gap: 15px;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   width: 100dvw;
+  height: 100lvh;
 }
 
 .main-section-inverted {
@@ -619,8 +628,8 @@ a:hover {
   .NAV {
     background: none !important;
     position: relative;
-    width: 100% !important;
-    height: inherit !important;
+    width: 100lvh !important;
+    height: 200lvh !important;
     display: flex;
         flex-direction: row;
       flex-wrap: wrap;
@@ -701,52 +710,47 @@ a:hover {
     gap: 4px;
 }
 
-.task-check {
-    appearance: none;
-    -webkit-appearance: none;
 
-    width: 20px;
-    height: 20px;
-
-    min-width: 20px;
-    min-height: 20px;
-
-    box-sizing: border-box;
-    border-radius: 50%;
-
-    border: 2px solid #808080;
-
-    padding: 0;
-    margin: 0;
-
-    flex-shrink: 0;
-
-    position: relative;
-    display: flex;
-    place-content: center;
+.point-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
 }
 
-
-.task-check:checked {
-    background: currentColor;
+.point-complete-btn {
+  flex: 0 0 auto;
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0;
+  margin: 0;
+  border-radius: 100%;
+  border: 2px solid var(--text-color2);
+  background: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
 }
 
-.task-check::after {
-    content: "";
-    width: 6px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: scale(0) rotate(45deg);
-    transition: transform 120ms ease-in-out;
+.point-complete-btn:hover {
+  border-color: var(--accent-color3);
 }
-.task-check:checked::after {
-    transform: rotate(45deg) scale(1);
-    opacity: 1;
+
+.point-complete-btn.checked {
+  background-color: var(--accent-color3);
+  border-color: var(--accent-color3);
 }
-.task-check:hover::after {
-    transform: rotate(45deg) scale(1);
-    opacity: 0.4;
+
+.point-complete-btn.checked::after {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.1rem;
+  width: 0.2rem;
+  height: 0.45rem;
+  border: solid var(--bg-color);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 [data-tooltip] {
@@ -765,4 +769,66 @@ a:hover {
   border-radius: 4px;
   font-size: 14px;
   z-index: 10;
+}
+
+.completion-alert {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: min(26rem, calc(100vw - 2.5rem));
+  padding: 0.85rem 0.75rem 0.85rem 1rem;
+  color: var(--text-color);
+  background: var(--nav-color);
+  border: 1px solid var(--accent-color2);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
+  animation: completion-alert-in 0.2s ease-out;
+}
+
+.completion-alert-undo,
+.completion-alert-close {
+  color: var(--accent-color3);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.completion-alert-undo {
+  font-weight: 600;
+  padding: 0.35rem 0.25rem;
+}
+
+.completion-alert-close {
+  padding: 0.2rem 0.35rem;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.completion-alert-undo:hover,
+.completion-alert-close:hover {
+  color: var(--text-color);
+}
+
+@keyframes completion-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .completion-alert {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    max-width: none;
+  }
 }

@@ -1,8 +1,8 @@
 const db = new Dexie("SlateLite");
 
-db.version(1).stores({
+db.version(2).stores({
 
-    lists: "id, title, createdAt",
+    lists: "id, title, createdAt, completedAt",
 
     writes: "id, title, updatedAt",
 
@@ -21,6 +21,25 @@ async function createList(title, date, tag) {
 
         createdAt: Date.now()
     });
+}
+
+async function completeList(id) {
+    const list = await db.lists.get(id);
+    if (!list || list.completedAt) return null;
+
+    const now = Date.now();
+    await db.lists.update(id, { completedAt: now, lastTouchedAt: now });
+
+    return { outcome: "completed", points: 0 };
+}
+
+async function undoCompleteList(id) {
+    const list = await db.lists.get(id);
+    if (!list || !list.completedAt) return null;
+
+    await db.lists.update(id, { completedAt: null, lastTouchedAt: Date.now() });
+
+    return { outcome: "restored" };
 }
 
 async function getLists() {

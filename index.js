@@ -32,36 +32,96 @@ let activeTheme = null;
 let activeTag = null;
 let editingWriteId = null;
 let editingListId = null;
+let completionAlertTimer = null;
+
+function showCompletionAlert(id) {
+    if (!document.body) return;
+
+    const existingAlert = document.querySelector(".completion-alert");
+    if (existingAlert) existingAlert.remove();
+    if (completionAlertTimer) clearTimeout(completionAlertTimer);
+
+    const alert = document.createElement("div");
+    alert.className = "completion-alert";
+    alert.setAttribute("role", "alert");
+    alert.setAttribute("aria-live", "polite");
+
+    const message = document.createElement("span");
+    message.textContent = "1 task completed";
+
+    const undoButton = document.createElement("button");
+    undoButton.type = "button";
+    undoButton.className = "completion-alert-undo";
+    undoButton.textContent = "Undo";
+    undoButton.addEventListener("click", async () => {
+        clearTimeout(completionAlertTimer);
+        await undoCompleteList(id);
+        alert.remove();
+        await renderLists();
+    });
+
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "completion-alert-close";
+    closeButton.setAttribute("aria-label", "Close");
+    closeButton.textContent = "\u00d7";
+    closeButton.addEventListener("click", () => {
+        clearTimeout(completionAlertTimer);
+        alert.remove();
+    });
+
+    alert.append(message, undoButton, closeButton);
+    document.body.appendChild(alert);
+
+    completionAlertTimer = setTimeout(() => {
+        alert.remove();
+        completionAlertTimer = null;
+    }, 5000);
+}
 
 function openWriteCreateDialog() {
-    writeCreateDialog.showModal();
+    if (writeCreateDialog && typeof writeCreateDialog.showModal === "function") {
+        writeCreateDialog.showModal();
+    }
 }
 
 function openListCreateDialog() {
-    listCreateDialog.showModal();
+    if (listCreateDialog && typeof listCreateDialog.showModal === "function") {
+        listCreateDialog.showModal();
+    }
 }
 
 function openSettingsDialog() {
-    settingsDialog.showModal();
+    if (settingsDialog && typeof settingsDialog.showModal === "function") {
+        settingsDialog.showModal();
+    }
 }
 
 function openTagDialog() {
-    tagDialog.showModal();
+    if (tagDialog && typeof tagDialog.showModal === "function") {
+        tagDialog.showModal();
+    }
 }
 
 const tagDialogButton = document.getElementById("mobile-menu");
 
-tagDialogButton.addEventListener("click", async () => {
-    openTagDialog()    
-});
+if (tagDialogButton) {
+    tagDialogButton.addEventListener("click", async () => {
+        openTagDialog();
+    });
+}
 
 const settingsDialogButton = document.getElementById("openSettings");
 
-settingsDialogButton.addEventListener("click", async () => {
-    openSettingsDialog()    
-});
+if (settingsDialogButton) {
+    settingsDialogButton.addEventListener("click", async () => {
+        openSettingsDialog();
+    });
+}
 
 function attachDialogCloseBehavior(dialog) {
+    if (!dialog) return;
+
     dialog.addEventListener('click', (event) => {
         const rect = dialog.getBoundingClientRect();
         const clickedInside =
@@ -71,7 +131,7 @@ function attachDialogCloseBehavior(dialog) {
             event.clientY <= rect.bottom;
 
         if (!clickedInside) {
-            dialog.close();
+            if (typeof dialog.close === "function") dialog.close();
             const form = dialog.querySelector('form');
             if (form) form.reset();
         }
@@ -83,15 +143,17 @@ function attachDialogCloseBehavior(dialog) {
     });
 }
 
-attachDialogCloseBehavior(writeCreateDialog);
-attachDialogCloseBehavior(listCreateDialog);
-attachDialogCloseBehavior(tagDialog);
-attachDialogCloseBehavior(settingsDialog);
+if (writeCreateDialog) attachDialogCloseBehavior(writeCreateDialog);
+if (listCreateDialog) attachDialogCloseBehavior(listCreateDialog);
+if (tagDialog) attachDialogCloseBehavior(tagDialog);
+if (settingsDialog) attachDialogCloseBehavior(settingsDialog);
 
 //--//
 
 async function renderLists(filterTag = activeTag) {
     const listContainer = document.getElementById("listContainer");
+    if (!listContainer) return;
+
     const lists = await getLists();
     
     const formatShortDate = (datetimeLocalStr) => {
@@ -116,18 +178,19 @@ async function renderLists(filterTag = activeTag) {
     listContainer.innerHTML = "";
 
     lists
-        .filter(list => !filterTag || list.tag === filterTag)
+        .filter(list => !list.completedAt && (!filterTag || list.tag === filterTag))
         .forEach(list => {
         const point = document.createElement("div");
         point.className = "point";
         const tagPath = list.tag === "icons/tags/all.svg" || list.tag === "0" || !list.tag
             ? "icons/blank.svg"
             : list.tag;
-        point.innerHTML = `<div class="point-content">
+        point.innerHTML = `<div class="point-row">
+            <button class="point-complete-btn" data-id="${list.id}" aria-label="Complete ${list.title}"></button>
+            <div class="point-content">
                 <span>${list.title}</span>
                 <p class="content-text">${formatShortDate(list.date)}<img style="width: 1rem; height: 1rem; padding-left: 5px;" class="ico" src="${tagPath}" alt="Tag"></p>
             </div>
-
         </div>
         <button class="point-delete-btn" data-id="${list.id}"><img class="ico" src="icons/trash.svg" alt="trash"></button>`;
         listContainer.appendChild(point);
@@ -140,14 +203,16 @@ const listForm = document.getElementById("listCreateFrm");
 const listTagInput = document.getElementById("listTagInput");
 const listFilterButton = document.getElementById("listFilterInput");
 
-listFilterButton.addEventListener("click", () => {
-    const nextTag = (parseInt(listTagInput.value || "0", 10) + 1) % Object.keys(tags).length;
-    listTagInput.value = nextTag;
-    listFilterButton.querySelector("img").src = tags[nextTag];
-});
+if (listFilterButton && listTagInput) {
+    listFilterButton.addEventListener("click", () => {
+        const nextTag = (parseInt(listTagInput.value || "0", 10) + 1) % Object.keys(tags).length;
+        listTagInput.value = nextTag;
+        listFilterButton.querySelector("img").src = tags[nextTag];
+    });
+}
        
-
-listForm.addEventListener("submit", async (event) => { 
+if (listForm) {
+    listForm.addEventListener("submit", async (event) => { 
        
         console.log("Form submitted");
         const formData = new FormData(listForm);
@@ -166,14 +231,35 @@ listForm.addEventListener("submit", async (event) => {
     
         renderLists();
     });
+}
 
-createListButton.addEventListener("click", async () => {
-    editingListId = null;
-    openListCreateDialog()    
-});
+if (createListButton) {
+    createListButton.addEventListener("click", async () => {
+        editingListId = null;
+        openListCreateDialog();
+    });
+}
 
-listContainer.addEventListener("click", async (event) => {
-    console.log("List container clicked");
+if (listContainer) {
+    listContainer.addEventListener("click", async (event) => {
+        console.log("List container clicked");
+
+        const completeButton = event.target.closest(".point-complete-btn");
+ 
+    if (completeButton) {
+        const id = completeButton.dataset.id;
+ 
+        // Let the check land visually before the row disappears.
+        completeButton.classList.add("checked");
+        await new Promise(resolve => setTimeout(resolve, 180));
+ 
+        const result = await completeList(id);
+        console.log("Completed:", id, result);
+ 
+        await renderLists();
+        if (result) showCompletionAlert(id);
+        return;
+    }
 
     const button = event.target.closest(".point-delete-btn");
 
@@ -193,24 +279,27 @@ listContainer.addEventListener("click", async (event) => {
 
     const list = await db.lists.get(point.querySelector(".point-delete-btn").dataset.id);
 
-    if (!list) return;
+        if (!list) return;
 
-    editingListId = list.id;
-    listForm.querySelector('[name="title"]').value = list.title;
-    listForm.querySelector('[name="date"]').value = list.date;
-    listForm.querySelector('[name="tag"]').value = Object.keys(tags).find(
-        tagIndex => tags[tagIndex] === list.tag
-    ) || "0";
-    listTagInput.value = listForm.querySelector('[name="tag"]').value;
-    listFilterButton.querySelector("img").src = tags[listTagInput.value];
-    openListCreateDialog();
+        editingListId = list.id;
+        listForm.querySelector('[name="title"]').value = list.title;
+        listForm.querySelector('[name="date"]').value = list.date;
+        listForm.querySelector('[name="tag"]').value = Object.keys(tags).find(
+            tagIndex => tags[tagIndex] === list.tag
+        ) || "0";
+        listTagInput.value = listForm.querySelector('[name="tag"]').value;
+        listFilterButton.querySelector("img").src = tags[listTagInput.value];
+        openListCreateDialog();
 
-});
+    });
+}
 
 //-------------------------------------------------------------------------//
 
 async function renderWrites(filterTag = activeTag) {
     const writeContainer = document.getElementById("writeContainer");
+    if (!writeContainer) return;
+
     const writes = await getWrites();
     
     writeContainer.innerHTML = "";
@@ -241,13 +330,16 @@ const writeForm = document.getElementById("writeCreateFrm");
 const writeTagInput = document.getElementById("writeTagInput");
 const writeFilterButton = document.getElementById("writeFilterInput");
 
-writeFilterButton.addEventListener("click", () => {
-    const nextTag = (parseInt(writeTagInput.value || "0", 10) + 1) % Object.keys(tags).length;
-    writeTagInput.value = nextTag;
-    writeFilterButton.querySelector("img").src = tags[nextTag];
-});
+if (writeFilterButton && writeTagInput) {
+    writeFilterButton.addEventListener("click", () => {
+        const nextTag = (parseInt(writeTagInput.value || "0", 10) + 1) % Object.keys(tags).length;
+        writeTagInput.value = nextTag;
+        writeFilterButton.querySelector("img").src = tags[nextTag];
+    });
+}
 
-writeForm.addEventListener("submit", async (event) => { 
+if (writeForm) {
+    writeForm.addEventListener("submit", async (event) => { 
        
         console.log("Form submitted");
         const formData = new FormData(writeForm);
@@ -266,15 +358,19 @@ writeForm.addEventListener("submit", async (event) => {
     
         renderWrites();
     });
+}
 
-createWriteButton.addEventListener("click", async () => {
-    editingWriteId = null;
-    openWriteCreateDialog()    
-});
+if (createWriteButton) {
+    createWriteButton.addEventListener("click", async () => {
+        editingWriteId = null;
+        openWriteCreateDialog();
+    });
+}
 
-writeContainer.addEventListener("click", async (event) => {
+if (writeContainer) {
+    writeContainer.addEventListener("click", async (event) => {
 
-    const button = event.target.closest(".line-delete-btn");
+        const button = event.target.closest(".line-delete-btn");
 
     if (button) {
         const id = button.dataset.id;
@@ -291,19 +387,20 @@ writeContainer.addEventListener("click", async (event) => {
 
     const write = await db.writes.get(line.querySelector(".line-delete-btn").dataset.id);
 
-    if (!write) return;
+        if (!write) return;
 
-    editingWriteId = write.id;
-    writeForm.querySelector('[name="title"]').value = write.title;
-    writeForm.querySelector('[name="content"]').value = write.content;
-    writeForm.querySelector('[name="tag"]').value = Object.keys(tags).find(
-        tagIndex => tags[tagIndex] === write.tag
-    ) || "0";
-    writeTagInput.value = writeForm.querySelector('[name="tag"]').value;
-    writeFilterButton.querySelector("img").src = tags[writeTagInput.value];
-    openWriteCreateDialog();
+        editingWriteId = write.id;
+        writeForm.querySelector('[name="title"]').value = write.title;
+        writeForm.querySelector('[name="content"]').value = write.content;
+        writeForm.querySelector('[name="tag"]').value = Object.keys(tags).find(
+            tagIndex => tags[tagIndex] === write.tag
+        ) || "0";
+        writeTagInput.value = writeForm.querySelector('[name="tag"]').value;
+        writeFilterButton.querySelector("img").src = tags[writeTagInput.value];
+        openWriteCreateDialog();
 
-});
+    });
+}
 //-------------------------------------------------------------------------//
 
 document.querySelectorAll(".filterButtons button, .filtersDialog button").forEach(button => {
@@ -367,23 +464,25 @@ if (action === 'write') {
 //-------------------------------------------------------------------------//
 const colorContainer = document.getElementById("colorPicker");
 
-colorContainer.addEventListener("click", async (event) => {
-    const button = event.target.closest("button[data-set]");
-    if (!button) return;
-    
+if (colorContainer) {
+    colorContainer.addEventListener("click", async (event) => {
+        const button = event.target.closest("button[data-set]");
+        if (!button) return;
+        
 
-    const setIndex = Number(button.dataset.set);
-    activeTheme = setIndex === 0 ? null : themes[setIndex];
-    localStorage.setItem("slateLiteTheme", activeTheme || themes[0]);
-    
+        const setIndex = Number(button.dataset.set);
+        activeTheme = setIndex === 0 ? null : themes[setIndex];
+        localStorage.setItem("slateLiteTheme", activeTheme || themes[0]);
+        
 
-    try {
-        await updateSettings(activeTheme || themes[0]);
-    } catch (error) {
-        console.error("Unable to save theme", error);
-    }
-    renderTheme();
-});
+        try {
+            await updateSettings(activeTheme || themes[0]);
+        } catch (error) {
+            console.error("Unable to save theme", error);
+        }
+        renderTheme();
+    });
+}
 
 function renderTheme(selectedTheme = activeTheme) {
     const themeButtons = [
@@ -402,15 +501,17 @@ function renderTheme(selectedTheme = activeTheme) {
         : 0;
 
     document.documentElement.className = selectedTheme || "";
+    if (!colorContainer) return;
+
     colorContainer.innerHTML = themeButtons.map(([index, color]) => `
         <button type="button" name="color" class="${index === selectedIndex ? "circle-outline" : "circle"}" data-set="${index}" style="background-color: ${color};" aria-label="${themes[index] || "Default"} theme"></button>
     `).join("");
 }
 
 //-------------------------------------------------------------------------//
-renderLists();
-renderWrites();
-renderTheme();
+if (listContainer) renderLists();
+if (writeContainer) renderWrites();
+if (colorContainer) renderTheme();
 
 async function loadTheme() {
     try {
@@ -438,7 +539,9 @@ async function clearDatabase() {
 }
 
 const clearDatabaseButton = document.getElementById("clearDatabaseButton");
-clearDatabaseButton.addEventListener("click", clearDatabase);
+if (clearDatabaseButton) {
+    clearDatabaseButton.addEventListener("click", clearDatabase);
+}
 
 if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
   navigator.serviceWorker.register('./sw.js')
