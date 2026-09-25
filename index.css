@@ -651,7 +651,7 @@ a:hover {
   .NAV {
     background: none !important;
     position: relative;
-    width: 100lvh !important;
+    width: 100lvw !important;
     height: 200lvh !important;
     display: flex;
         flex-direction: row;
