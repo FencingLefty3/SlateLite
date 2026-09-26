@@ -324,7 +324,7 @@ input, select, textarea {
   background-size: cover; /* Forces image to fit the dimensions */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling */
-  padding-right: 1.2rem;
+  padding-right: 1.3rem;
 }
 .backIcon {
   position: fixed;

@@ -26,10 +26,12 @@ const settingsDialog = document.getElementById("settingsDialog");
 const listContainer = document.getElementById("listContainer");
 const writeContainer = document.getElementById("writeContainer");
 
+const searchInput = document.getElementById("searchInput");
 const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");
 let activeTheme = null;
 let activeTag = null;
+let currentSearch = null;
 let editingWriteId = null;
 let editingListId = null;
 let completionAlertTimer = null;
@@ -150,7 +152,7 @@ if (settingsDialog) attachDialogCloseBehavior(settingsDialog);
 
 //--//
 
-async function renderLists(filterTag = activeTag) {
+async function renderLists(filterTag = activeTag, searchQuery = currentSearch) {
     const listContainer = document.getElementById("listContainer");
     if (!listContainer) return;
 
@@ -179,6 +181,7 @@ async function renderLists(filterTag = activeTag) {
 
     lists
         .filter(list => !list.completedAt && (!filterTag || list.tag === filterTag))
+        .filter(list => !searchQuery || list.title.toLowerCase().includes(searchQuery.toLowerCase()))
         .forEach(list => {
         const point = document.createElement("div");
         point.className = "point";
@@ -296,7 +299,7 @@ if (listContainer) {
 
 //-------------------------------------------------------------------------//
 
-async function renderWrites(filterTag = activeTag) {
+async function renderWrites(filterTag = activeTag, searchQuery = currentSearch) {
     const writeContainer = document.getElementById("writeContainer");
     if (!writeContainer) return;
 
@@ -306,6 +309,7 @@ async function renderWrites(filterTag = activeTag) {
 
     writes
     .filter(write => !filterTag || write.tag === filterTag)
+    .filter(write => !searchQuery || write.title.toLowerCase().includes(searchQuery.toLowerCase()) || write.content.toLowerCase().includes(searchQuery.toLowerCase()))
     .forEach(write => {
         const line = document.createElement("div");
         line.className = "line";
@@ -403,6 +407,15 @@ if (writeContainer) {
 }
 //-------------------------------------------------------------------------//
 
+const queryString1 = window.location.search;
+const urlParams1 = new URLSearchParams(queryString1);
+const searchQuery1 = urlParams1.get('query');
+currentSearch = searchQuery1;
+
+searchInput.value = searchQuery1 || "";
+
+console.log("Search query parameter:", searchQuery1);
+
 document.querySelectorAll(".filterButtons button, .filtersDialog button").forEach(button => {
     button.addEventListener("click", async () => {
         const tagIndex = Number(button.dataset.tag);
@@ -447,16 +460,16 @@ lines.forEach(line => {
 //-------------------------------------------------------------------------//
 
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const action = urlParams.get('action');
+const queryString21 = window.location.search;
+const urlParams21 = new URLSearchParams(queryString21);
+const action21 = urlParams21.get('action');
 
-console.log("Action parameter:", action);
+console.log("Action parameter:", action21);
 
-if (action === 'write') {
+if (action21 === 'write') {
     console.log("Opening write create dialog");
     openWriteCreateDialog();
-} else if (action === 'list') {
+} else if (action21 === 'list') {
     console.log("Opening list create dialog");
     openListCreateDialog();
 }
