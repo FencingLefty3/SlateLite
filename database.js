@@ -8,9 +8,7 @@ db.version(4).stores({
 
     settings: "theme, index",
 
-    elo: "score",
-
-    scoreLog: "++id, score, timestamp"
+    elo: "score"
 });
 
 async function createList(title, date, tag) {
