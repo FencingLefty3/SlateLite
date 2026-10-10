@@ -65,7 +65,8 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100vh; 
+  height: 100dvh;
+  overflow: hidden;
   background: var(--bg-color);
   color: var(--text-color);
   
@@ -256,6 +257,47 @@ input, select, textarea {
   background-color: var(--accent-color) !important;
 }
 
+
+.bar {
+  width: 100%;
+  height: 2rem;
+  background-color: var(--accent-color2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background-color: var(--accent-color3);
+}
+
+.bar-line {
+  position: absolute;
+  top: 40%;
+  left: 80%;
+  width: 2px;
+  height: 70%;
+  background-color: var(--text-color);
+}
+
+@media (max-width: 970px) {
+  .indexscore {
+    display: none !important;
+  }
+}
+
+.indexscore {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 100%;
+}
+
+
 @media (max-width: 970px) {
   .btnNav {
     display: block !important;
@@ -273,9 +315,11 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   width: 100%;
 }
+
+
 
 .btnNav {
   background: var(--accent-color2);
@@ -372,6 +416,7 @@ input, select, textarea {
   margin: 4px 0;
   border-radius: 4px;
   background-color: var(--nav-color);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
 }
 
 .line {
@@ -383,6 +428,7 @@ input, select, textarea {
   margin: 4px 0;
   border-radius: 4px;
   background-color: var(--nav-color);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
 }
 
 .ico {
@@ -403,7 +449,6 @@ input[type="datetime-local"] {
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 20px;
-    cursor: pointer;
 }
 
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
@@ -411,7 +456,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   margin: 0;
   padding: 0;
   opacity: 0;
@@ -482,13 +527,16 @@ input::placeholder {
 }
 .main {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100lvh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .column-section-bg {
@@ -660,9 +708,11 @@ a:hover {
     justify-content: center;
   top: 0;
   left: 0;
-  height: 100lvh;
+  height: 100%;
   width: 20%;
-
+  flex-shrink: 0;
+  overflow: hidden; 
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
 }
 
 .main-section {
@@ -671,7 +721,9 @@ a:hover {
   flex-direction: row;
   justify-content: center;
   width: 100dvw;
-  height: 100lvh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .main-section-inverted {
@@ -681,6 +733,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   margin-top: 0.5rem;
+  width: 100%;
 }
 
 @media (max-width: 970px) {
@@ -695,6 +748,15 @@ a:hover {
       align-content: flex-start;
       align-items: center;
       justify-content: center;
+  box-shadow: none !important;
+  }
+  body {
+    height: auto;
+    min-height: 100dvh;
+    overflow: auto;
+  }
+  .body {
+    height: auto;
   }
   .main-section {
     display: flex;
@@ -702,6 +764,16 @@ a:hover {
     flex-direction: column !important;
     width: 100% !important;
     margin-top: 0.5rem;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .main {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
   .main-section-inverted {
     display: flex;

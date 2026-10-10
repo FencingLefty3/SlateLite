@@ -29,6 +29,11 @@ const writeContainer = document.getElementById("writeContainer");
 const searchInput = document.getElementById("searchInput");
 const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");
+
+const scoreBar = document.getElementById("scoreBar");
+const EloCheckbox = document.getElementById("EloCheckbox");
+let score = 20;
+
 let activeTheme = null;
 let activeTag = null;
 let currentSearch = null;
@@ -407,6 +412,20 @@ if (writeContainer) {
 }
 //-------------------------------------------------------------------------//
 
+async function updateScore() {
+    const settings = await getSettings();
+    const score100 = settings[0]?.score || 0;
+
+    score = Math.min(score100 * 0.8, 100);
+
+    if (scoreBar) {
+        scoreBar.style.width = `${score}%`;
+    }
+}
+updateScore()
+
+//-------------------------------------------------------------------------//
+
 const queryString1 = window.location.search;
 const urlParams1 = new URLSearchParams(queryString1);
 const searchQuery1 = urlParams1.get('query');
@@ -520,6 +539,14 @@ function renderTheme(selectedTheme = activeTheme) {
         <button type="button" name="color" class="${index === selectedIndex ? "circle-outline" : "circle"}" data-set="${index}" style="background-color: ${color};" aria-label="${themes[index] || "Default"} theme"></button>
     `).join("");
 }
+
+function renderScoreBar() {
+    const selectedIndex = Settings[0]?.index || 0;
+    
+        
+
+    
+
 
 //-------------------------------------------------------------------------//
 if (listContainer) renderLists();

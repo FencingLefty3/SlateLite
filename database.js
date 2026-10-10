@@ -1,12 +1,12 @@
 const db = new Dexie("SlateLite");
 
-db.version(2).stores({
+db.version(3).stores({
 
     lists: "id, title, createdAt, completedAt",
 
     writes: "id, title, updatedAt",
 
-    settings: "theme"
+    settings: "theme, score, index"
 });
 
 async function createList(title, date, tag) {
@@ -75,8 +75,8 @@ async function updateWrite(id, title, content, tag) {
     return await db.writes.update(id, { title, content, tag: tags[tag] || tags[0] });
 }
 
-async function createSettings(theme) {
-    return await db.settings.put({ theme: theme || ":root" });
+async function createSettings(theme, score, index) {
+    return await db.settings.put({ theme: theme || ":root", score: score || 0, index: index || 0 });
 }
 
 async function deleteWrite(id) {
@@ -87,8 +87,8 @@ async function getSettings() {
     return await db.settings.toArray();
 }
 
-async function updateSettings(theme) {
-    return await createSettings(theme);
+async function updateSettings(theme, score, index) {
+    return await createSettings(theme, score, index);
 }
 
 
