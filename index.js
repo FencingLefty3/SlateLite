@@ -30,6 +30,7 @@ const searchInput = document.getElementById("searchInput");
 const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");
 
+const indexScore = document.getElementById("indexscore");
 const scoreBar = document.getElementById("scoreBar");
 const EloCheckbox = document.getElementById("EloCheckbox");
 let score = 20;
@@ -431,7 +432,6 @@ const urlParams1 = new URLSearchParams(queryString1);
 const searchQuery1 = urlParams1.get('query');
 currentSearch = searchQuery1;
 
-searchInput.value = searchQuery1 || "";
 
 console.log("Search query parameter:", searchQuery1);
 
@@ -541,17 +541,48 @@ function renderTheme(selectedTheme = activeTheme) {
 }
 
 function renderScoreBar() {
-    const selectedIndex = Settings[0]?.index || 0;
-    
-        
+    getSettings().then(settings => {
+        const selectedIndex = settings[0]?.index;
 
-    
+        if (EloCheckbox) {
+            if (selectedIndex === 0) {
+                EloCheckbox.checked = true;
+            } else if (selectedIndex === 1) {
+                EloCheckbox.checked = false;
+            }}
+
+        if (indexScore) {
+            if (selectedIndex === 0) {
+                indexScore.style.display = "flex";
+            } else if (selectedIndex === 1) {
+                indexScore.style.display = "none";
+            }
+        }
+    }).catch(error => {
+        console.error("Unable to load saved checkbox setting", error);
+    });
+}
+
+if (EloCheckbox) {
+    EloCheckbox.addEventListener("change", async () => {
+        console.log("EloCheckbox changed:", EloCheckbox.checked);
+        const newIndex = EloCheckbox.checked ? 0 : 1;
+        updateSettings(activeTheme || themes[0], score, newIndex).then(() => {
+            console.log("Checkbox setting saved:", newIndex);
+        }).catch(error => {
+            console.error("Unable to save checkbox setting", error);
+        });
+    });
+};
+
+
 
 
 //-------------------------------------------------------------------------//
 if (listContainer) renderLists();
 if (writeContainer) renderWrites();
 if (colorContainer) renderTheme();
+renderScoreBar();
 
 async function loadTheme() {
     try {

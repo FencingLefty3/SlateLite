@@ -290,7 +290,6 @@ input, select, textarea {
 
 .indexscore {
   position: relative;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
