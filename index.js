@@ -260,8 +260,10 @@ if (listContainer) {
  
         // Let the check land visually before the row disappears.
         completeButton.classList.add("checked");
-        await new Promise(resolve => setTimeout(resolve, 180));
+        await new Promise(resolve => setTimeout(resolve, 360));
  
+        await CalculateElo("complete", id);
+
         const result = await completeList(id);
         console.log("Completed:", id, result);
  
@@ -300,8 +302,7 @@ if (listContainer) {
         listFilterButton.querySelector("img").src = tags[listTagInput.value];
         openListCreateDialog();
 
-    });
-}
+})}
 
 //-------------------------------------------------------------------------//
 
@@ -414,8 +415,8 @@ if (writeContainer) {
 //-------------------------------------------------------------------------//
 
 async function updateScore() {
-    const settings = await getSettings();
-    const score100 = settings[0]?.score || 0;
+    const elo = await getElo();
+    const score100 = elo[0]?.score || 0;
 
     score = Math.min(score100 * 0.8, 100);
 
@@ -540,6 +541,7 @@ function renderTheme(selectedTheme = activeTheme) {
     `).join("");
 }
 
+
 function renderScoreBar() {
     getSettings().then(settings => {
         const selectedIndex = settings[0]?.index;
@@ -567,7 +569,7 @@ if (EloCheckbox) {
     EloCheckbox.addEventListener("change", async () => {
         console.log("EloCheckbox changed:", EloCheckbox.checked);
         const newIndex = EloCheckbox.checked ? 0 : 1;
-        updateSettings(activeTheme || themes[0], score, newIndex).then(() => {
+        updateSettings(activeTheme || themes[0], newIndex).then(() => {
             console.log("Checkbox setting saved:", newIndex);
         }).catch(error => {
             console.error("Unable to save checkbox setting", error);

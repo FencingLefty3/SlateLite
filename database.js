@@ -1,12 +1,16 @@
 const db = new Dexie("SlateLite");
 
-db.version(3).stores({
+db.version(4).stores({
 
     lists: "id, title, createdAt, completedAt",
 
     writes: "id, title, updatedAt",
 
-    settings: "theme, score, index"
+    settings: "theme, index",
+
+    elo: "score",
+
+    scoreLog: "++id, score, timestamp"
 });
 
 async function createList(title, date, tag) {
@@ -36,6 +40,8 @@ async function completeList(id) {
 async function undoCompleteList(id) {
     const list = await db.lists.get(id);
     if (!list || !list.completedAt) return null;
+
+    await CalculateElo("undoComplete", id);
 
     await db.lists.update(id, { completedAt: null, lastTouchedAt: Date.now() });
 
@@ -75,8 +81,8 @@ async function updateWrite(id, title, content, tag) {
     return await db.writes.update(id, { title, content, tag: tags[tag] || tags[0] });
 }
 
-async function createSettings(theme, score, index) {
-    return await db.settings.put({ theme: theme || ":root", score: score || 0, index: index || 0 });
+async function createSettings(theme, index) {
+    return await db.settings.put({ theme: theme || ":root", index: index || 0 });
 }
 
 async function deleteWrite(id) {
@@ -87,8 +93,20 @@ async function getSettings() {
     return await db.settings.toArray();
 }
 
-async function updateSettings(theme, score, index) {
-    return await createSettings(theme, score, index);
+async function updateSettings(theme, index) {
+    return await createSettings(theme, index);
+}
+
+async function createElo(score) {
+    return await db.elo.put({score: score || 0});
+}
+
+async function getElo() {
+    return await db.elo.toArray();
+}
+
+async function updateElo(score) {
+    return await createElo(score);
 }
 
 
