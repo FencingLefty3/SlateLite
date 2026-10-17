@@ -352,6 +352,31 @@ input, select, textarea {
   background-repeat: no-repeat; /* Prevents tiling */
   padding-right: 1rem;
 }
+.flameIcon {
+  display: none;
+  padding: 1rem;
+  background: var(--accent-color2);
+  border: none;
+  color: var(--text-color);
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: .7;
+  aspect-ratio: 1/1; /* Ensures the button is square */
+}
+.flameIcon::before {
+  content: "";
+  background-image: url('icons/flame.svg');
+  background-size: cover; /* Forces image to fit the dimensions */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  padding-right: 1.3rem;
+}
+
+.flameIcon:hover {
+  background-color: var(--accent-color) !important;
+}
+
 .userIcon {
   padding: 1rem;
   background: var(--accent-color2);
@@ -360,6 +385,8 @@ input, select, textarea {
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
+  opacity: .7;
+  aspect-ratio: 1/1; /* Ensures the button is square */
 }
 .userIcon::before {
   content: "";
@@ -369,6 +396,10 @@ input, select, textarea {
   background-repeat: no-repeat; /* Prevents tiling */
   padding-right: 1.3rem;
 }
+.userIcon:hover {
+  background-color: var(--accent-color) !important;
+}
+
 .backIcon {
   position: fixed;
   top: 1rem;
@@ -780,6 +811,9 @@ a:hover {
     flex-direction: row !important;
     width: 100% !important;
     margin-top: 0.5rem;
+  }
+  .flameIcon {
+  display: block !important;
   }
 }
 

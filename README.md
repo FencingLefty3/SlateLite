@@ -16,6 +16,7 @@ A simple and lightweight note-taking & todo app.
 ## Features
 
 - Tasks (Lists) and Notes (Writes)
+- Rolling 30 day Index Score
 - Task tags & sorting
 - Mobile and Desktop PWA
 - Offline Caching
