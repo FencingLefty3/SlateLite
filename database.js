@@ -1,15 +1,31 @@
 const db = new Dexie("SlateLite");
 
-db.version(4).stores({
-
+const legacySchema = {
     lists: "id, title, createdAt, completedAt",
-
     writes: "id, title, updatedAt",
-
     settings: "theme, index",
-
     elo: "score"
+};
+
+db.version(4).stores(legacySchema);
+
+const currentSchema = {
+    ...legacySchema,
+    eloEntries: "id, date, score"
+};
+
+db.version(5).stores(currentSchema).upgrade(async transaction => {
+    const legacyScores = await transaction.table("elo").toArray();
+    const now = Date.now();
+
+    await transaction.table("eloEntries").bulkPut(legacyScores.map((entry, index) => ({
+        id: `legacy-${index}`,
+        date: now,
+        score: entry.score
+    })));
 });
+
+db.version(9).stores(currentSchema);
 
 async function createList(title, date, tag) {
     
@@ -95,17 +111,21 @@ async function updateSettings(theme, index) {
     return await createSettings(theme, index);
 }
 
-async function createElo(score) {
-    return await db.elo.put({score: score || 0});
+async function createElo(id, date, score) {
+    return await db.eloEntries.put({ id, date, score });
 }
 
 async function getElo() {
-    return await db.elo.toArray();
+    return await db.eloEntries.toArray();
 }
 
-async function updateElo(score) {
-    return await createElo(score);
+async function deleteElo(id) {
+    return await db.eloEntries.delete(id);
 }
+
+async function pruneElo(beforeDate) {
+    return await db.eloEntries.where("date").below(beforeDate).delete();
+w}
 
 
 

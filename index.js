@@ -415,8 +415,10 @@ if (writeContainer) {
 //-------------------------------------------------------------------------//
 
 async function updateScore() {
-    const elo = await getElo();
-    const score100 = elo[0]?.score || 0;
+    const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    await pruneElo(thirtyDaysAgo);
+    const scores = await getElo();
+    const score100 = scores.reduce((total, entry) => total + entry.score, 0);
 
     score = Math.min(score100 * 0.8, 100);
 
