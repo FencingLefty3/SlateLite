@@ -31,7 +31,10 @@ const writeCreateForm = document.getElementById("writeCreateFrm");
 const listCreateForm = document.getElementById("listCreateFrm");
 
 const indexScore = document.getElementById("indexscore");
+const sindexScore = document.getElementById("sindexscore");
+const sScoreBar = document.getElementById("sScoreBar");
 const scoreBar = document.getElementById("scoreBar");
+const flameBtn = document.getElementById("flameBtn");
 const EloCheckbox = document.getElementById("EloCheckbox");
 let score = 20;
 
@@ -425,6 +428,9 @@ async function updateScore() {
     if (scoreBar) {
         scoreBar.style.width = `${score}%`;
     }
+    if (sScoreBar) {
+        sScoreBar.style.width = `${score}%`;
+    }
 }
 updateScore()
 
@@ -543,6 +549,11 @@ function renderTheme(selectedTheme = activeTheme) {
     `).join("");
 }
 
+flameBtn.addEventListener("click", async () => {
+    if (sindexScore) {
+        sindexScore.style.display = sindexScore.style.display === "flex" ? "none" : "flex";
+    }
+});
 
 function renderScoreBar() {
     getSettings().then(settings => {

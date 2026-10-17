@@ -271,6 +271,7 @@ input, select, textarea {
   height: 100%;
   border-radius: 2px;
   background-color: var(--accent-color3);
+  opacity: 0.7;
 }
 
 .bar-line {
@@ -279,6 +280,15 @@ input, select, textarea {
   left: 80%;
   width: 2px;
   height: 70%;
+  background-color: var(--text-color);
+}
+
+.sbar-line {
+  position: absolute;
+  top: 0%;
+  left: 80%;
+  width: 2px;
+  height: 100%;
   background-color: var(--text-color);
 }
 
@@ -294,6 +304,17 @@ input, select, textarea {
   justify-content: center;
   align-items: left;
   width: 100%;
+  aspect-ratio: 7.53/1;
+}
+
+.sindexscore {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 30dvw;
+  aspect-ratio: 7.53/1;
 }
 
 
